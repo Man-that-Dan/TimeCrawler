@@ -32,9 +32,10 @@ public class Level {
             for(int i = 0; i < 4; i++) {
                 remainingDirections.add(i);
             }
-            while(remainingDirections.size() != 0) {
+            boolean unfound = true;
+            while(remainingDirections.size() != 0 && unfound) {
                 int r = Rand.world_next_int(0, remainingDirections.size());
-                if(rooms[currentx][currenty].neighbors[remainingDirections.get(r)] == null) {
+                if(rooms[currentx][currenty].connections[remainingDirections.get(r)] == null) {
                     //TODO
                     switch(remainingDirections.get(r)) {
                         case 0: //EAST
@@ -42,9 +43,10 @@ public class Level {
                                 remainingDirections.remove(r);
                             } else {
                                 rooms[currentx + 1][currenty] = new Room(currentx + 1, currenty);
-                                rooms[currentx][currenty].setNeighbor(rooms[currentx + 1][currenty], 0);
+                                rooms[currentx][currenty].setConnection(rooms[currentx + 1][currenty], 0);
                                 roomStack.push(new IntCoordinate(currentx, currenty));
                                 currentx = currentx + 1;
+                                unfound = false;
                             }
                             break;
                         case 1: //NORTH
@@ -52,9 +54,10 @@ public class Level {
                                 remainingDirections.remove(r);
                             } else {
                                 rooms[currentx][currenty + 1] = new Room(currentx, currenty + 1);
-                                rooms[currentx][currenty].setNeighbor(rooms[currentx][currenty + 1], 1);
+                                rooms[currentx][currenty].setConnection(rooms[currentx][currenty + 1], 1);
                                 roomStack.push(new IntCoordinate(currentx, currenty));
                                 currenty = currenty + 1;
+                                unfound = false;
                             }
                             break;
                         case 2: //WEST
@@ -62,19 +65,21 @@ public class Level {
                                 remainingDirections.remove(r);
                             } else {
                                 rooms[currentx - 1][currenty] = new Room(currentx - 1, currenty);
-                                rooms[currentx][currenty].setNeighbor(rooms[currentx - 1][currenty], 2);
+                                rooms[currentx][currenty].setConnection(rooms[currentx - 1][currenty], 2);
                                 roomStack.push(new IntCoordinate(currentx, currenty));
                                 currentx = currentx - 1;
+                                unfound = false;
                             }
                             break;
                         case 3: //SOUTH
-                            if(currenty == height - 1) {
+                            if(currenty == 0) {
                                 remainingDirections.remove(r);
                             } else {
-                                rooms[currentx][currenty + 1] = new Room(currentx, currenty + 1);
-                                rooms[currentx][currenty].setNeighbor(rooms[currentx][currenty + 1], 1);
+                                rooms[currentx][currenty - 1] = new Room(currentx, currenty - 1);
+                                rooms[currentx][currenty].setConnection(rooms[currentx][currenty - 1], 3);
                                 roomStack.push(new IntCoordinate(currentx, currenty));
-                                currenty = currenty + 1;
+                                currenty = currenty - 1;
+                                unfound = false;
                             }
                             break;
                     }
@@ -82,7 +87,12 @@ public class Level {
                     remainingDirections.remove(r);
                 }
             }
-        } while(currentx != startx && currenty != starty);
+            if(unfound) {
+                IntCoordinate c = roomStack.pop();
+                currentx = c.x;
+                currenty = c.y;
+            }
+        } while(!roomStack.empty());
     }
 
     private static double scaleDifficulty(double previousDifficulty) {
