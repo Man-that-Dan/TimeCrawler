@@ -1,52 +1,27 @@
 package geometry;
 
-public class Rectangle {
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Polygon;
+
+public class Rectangle{
     public double x;
     public double y;
     public double width;
     public double height;
+    public Polygon rect;
 
     public Rectangle(double x, double y, double width, double height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        GeometryFactory geometryFactory = new GeometryFactory();
+        rect = geometryFactory.createPolygon(new Coordinate[] { new Coordinate(x, y), new Coordinate(x + width, y),
+                new Coordinate(x + width, y + height), new Coordinate(x, y + height)});
     }
 
-    public boolean intersects(Rectangle r) {
-        if(x < r.x) {
-            if(x + width > r.x) {
-                if(y < r.y) {
-                    if(y + height > r.y) {
-                        return true;
-                    } else return false;
-                } else if(y > r.y) {
-                    if(r.y + r.height > y) {
-                        return true;
-                    }
-                    else return false;
-                } else {
-                    return true;
-                }
-            } else return false;
-        } else if(x > r.x) {
-            if(x + width < r.x) {
-                if(y < r.y) {
-                    if(y + height > r.y) {
-                        return true;
-                    } else return false;
-                } else if(y > r.y) {
-                    if(r.y + r.height > y) {
-                        return true;
-                    }
-                    else return false;
-                } else {
-                    return true;
-                }
-            } else return false;
-
-        } else {
-
-        }
+    public boolean intersects(Polygon polygon) {
+        return rect.intersects(polygon);
     }
 }

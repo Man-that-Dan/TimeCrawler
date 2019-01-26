@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="core" level="project" />
+    <orderEntry type="library" name="org.locationtech.jts:jts-core:1.16.0" level="project" />
   </component>
 </module>
