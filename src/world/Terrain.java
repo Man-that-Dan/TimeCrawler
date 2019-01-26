@@ -13,5 +13,12 @@ public class Terrain extends Entity {
       type = "Rock";
     };
 
+    public Terrain(double x, double y, String settype){
+        posx = x;
+        posy = y;
+
+        type = settype;
+    };
+
 
 }
