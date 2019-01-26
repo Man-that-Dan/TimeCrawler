@@ -19,11 +19,16 @@ public class Room {
     }
 
     boolean setConnection(Room newNeighbor, int pos) {
+        //If the connection doesn't already exists for this room in the specified direction, and if
+        //the connection doesn't already exist for the specified room in the opposite direction
         if(connections[pos] == null && newNeighbor.connections[(pos + 2) % 4] == null) {
+            //Make the rooms neighbors
             connections[pos] = newNeighbor;
             newNeighbor.connections[(pos + 2) % 4] = this;
+            //return success
             return true;
         } else {
+            //return failure
             return false;
         }
     }
