@@ -52,13 +52,31 @@ public class Level {
                                 remainingDirections.remove(r);
                             } else {
                                 rooms[currentx][currenty + 1] = new Room(currentx, currenty + 1);
-                                rooms[currentx][currenty + 1].setNeighbor(rooms[currentx][currenty + 1], 1);
+                                rooms[currentx][currenty].setNeighbor(rooms[currentx][currenty + 1], 1);
                                 roomStack.push(new IntCoordinate(currentx, currenty));
                                 currenty = currenty + 1;
                             }
                             break;
                         case 2: //WEST
+                            if(currentx == 0) {
+                                remainingDirections.remove(r);
+                            } else {
+                                rooms[currentx - 1][currenty] = new Room(currentx - 1, currenty);
+                                rooms[currentx][currenty].setNeighbor(rooms[currentx - 1][currenty], 2);
+                                roomStack.push(new IntCoordinate(currentx, currenty));
+                                currentx = currentx - 1;
+                            }
+                            break;
                         case 3: //SOUTH
+                            if(currenty == height - 1) {
+                                remainingDirections.remove(r);
+                            } else {
+                                rooms[currentx][currenty + 1] = new Room(currentx, currenty + 1);
+                                rooms[currentx][currenty].setNeighbor(rooms[currentx][currenty + 1], 1);
+                                roomStack.push(new IntCoordinate(currentx, currenty));
+                                currenty = currenty + 1;
+                            }
+                            break;
                     }
                 } else {
                     remainingDirections.remove(r);
