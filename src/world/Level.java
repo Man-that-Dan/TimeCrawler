@@ -68,6 +68,15 @@ public class Level {
                             }
                             break;
                         case 3: //SOUTH
+                            if(currenty == height - 1) {
+                                remainingDirections.remove(r);
+                            } else {
+                                rooms[currentx][currenty + 1] = new Room(currentx, currenty + 1);
+                                rooms[currentx][currenty].setNeighbor(rooms[currentx][currenty + 1], 1);
+                                roomStack.push(new IntCoordinate(currentx, currenty));
+                                currenty = currenty + 1;
+                            }
+                            break;
                     }
                 } else {
                     remainingDirections.remove(r);
