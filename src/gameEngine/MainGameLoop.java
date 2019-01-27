@@ -38,6 +38,7 @@ public class MainGameLoop extends PApplet {
      */
     public void dispatchEvents() {
         for(Mob m : room.mobs) {
+            m.tickStatuses();
             m.updateAI();
         }
         if(tick % 2 == 0) {
@@ -181,12 +182,12 @@ public class MainGameLoop extends PApplet {
             player.storeMovement(+5, 0);
             player.direction = 0;
         }
-        if (keyCode == UP) {
+        if (keyCode == DOWN) {
             //move up
             player.storeMovement(0, +5);
             player.direction = 1;
         }
-        if (keyCode == DOWN) {
+        if (keyCode == UP) {
             //move down
             player.storeMovement(0, -5);
             player.direction = 3;

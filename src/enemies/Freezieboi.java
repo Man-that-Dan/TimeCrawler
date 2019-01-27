@@ -3,7 +3,6 @@ package enemies;
 import entity.*;
 
 import event.*;
-import event.Event;
 import geometry.RectangleFactory;
 import org.locationtech.jts.geom.Polygon;
 import world.Room;
@@ -12,7 +11,7 @@ import world.Room;
 public class Freezieboi extends Enemy {
     int damage = 5;
     int speed = 2;
-//    StatusEffect frostbolt = new StatusEffect("Freeze", 3);
+    int frost_duration = 3;
 
     public Freezieboi(int x, int y, Room room, double diff){
         super(x, y, room, diff);

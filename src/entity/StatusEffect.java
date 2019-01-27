@@ -2,12 +2,11 @@ package entity;
 
 import event.StatusEvent;
 
-public abstract class StatusEffect {
+public abstract class StatusEffect implements Comparable<StatusEffect> {
     String type;
     int expiration_timer;
 
     public StatusEffect(String t, int ticks){
-      type = t;
       expiration_timer = ticks;
     };
     public StatusEffect(StatusEffect copy) {
@@ -31,4 +30,7 @@ public abstract class StatusEffect {
 
     public abstract void applyToMob(Mob m);
     public abstract void removeFromMob(Mob m);
+    public int compareTo(StatusEffect other) {
+        return this.expiration_timer - other.expiration_timer;
+    }
 }

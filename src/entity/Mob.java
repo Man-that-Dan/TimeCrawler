@@ -8,6 +8,7 @@ import org.locationtech.jts.geom.Coordinate;
 import world.Room;
 
 import java.util.HashSet;
+import java.util.PriorityQueue;
 
 public abstract class Mob extends Entity {
     public boolean spawned = false;
@@ -16,7 +17,7 @@ public abstract class Mob extends Entity {
     public double speed;
     public int direction;
     public double difficulty;
-    public HashSet<StatusEffect> statusEffects = new HashSet<>();
+    public PriorityQueue<StatusEffect> statusEffects = new PriorityQueue<>();
 
     public Mob(double x, double y, Room room) {
         super(x, y, room);
@@ -64,5 +65,12 @@ public abstract class Mob extends Entity {
     }
 
     public void tickStatuses() {
+        while(!statusEffects.isEmpty()){
+            if(statusEffects.peek().expiration_timer == 0) statusEffects.poll();
+            else break;
+        }
+        for(StatusEffect statusEffect : statusEffects) {
+            statusEffect.expiration_timer--;
+        }
     }
 }
