@@ -1,6 +1,5 @@
 package entity;
 
-import geometry.Rectangle;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.CoordinateFilter;
 import org.locationtech.jts.geom.Polygon;
@@ -25,12 +24,18 @@ public abstract class Entity {
             }
         };
         poly.apply(transposer);
+        poly.geometryChanged();
         //TODO: CHECK THIS
     }
 
     public HashSet<Terrain> getTerrainCollisions() {
-        //TODO
-        return null;
+        HashSet<Terrain> ret = new HashSet<>();
+        for(Terrain t : room.terrain) {
+            if(t.poly.intersects(poly)) {
+                ret.add(t);
+            }
+        }
+        return ret;
     }
     public HashSet<Entity> getMobCollisions() {
         //TODO
@@ -39,5 +44,19 @@ public abstract class Entity {
 
     public Coordinate[] getRenderInformation() {
         return poly.getCoordinates();
+    }
+
+    @Override
+    public int hashCode() {
+        return poly.hashCode() ^ room.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof Entity) {
+            Entity other = (Entity) o;
+            return this.poly.equals(other.poly) && this.color.equals(other.color) && this.room.equals(other.room);
+        }
+        return false;
     }
 }
