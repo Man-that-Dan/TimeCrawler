@@ -235,10 +235,10 @@ public class MainGameLoop extends PApplet {
 
     public static void main(String args[]){
         Rand.init((new Random()).nextLong());
-        level = new Level(null);
-//        room = new Room(0,0);
-        room = level.rooms[0][0];
-//        room.init();
+//        level = new Level(null);
+        room = new Room(0,0);
+//        room = level.rooms[0][0];
+        room.init();
 //        player.setlocation(0, 0);
 //        room.mobs.add(player);
         player = new Player(400, 400, room);
