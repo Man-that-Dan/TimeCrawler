@@ -1,10 +1,11 @@
 package world;
 
 import entity.Entity;
+import entity.Mob;
 import geometry.Rectangle;
+import org.locationtech.jts.geom.Polygon;
 import render.Color;
 
-import java.awt.*;
 import java.util.HashSet;
 
 import static world.Rand.room_next_double;
@@ -17,7 +18,7 @@ public class Room {
     //set of terrain objects
     public HashSet<Terrain> terrain;
     //enemies
-    public HashSet<Entity> mobs;
+    public HashSet<Mob> mobs;
 
     //0: East (+x)
     //1: North (+y)
@@ -64,7 +65,7 @@ public class Room {
         }
     }
 
-    HashSet<Entity> getMobs(Polygon area) {
+    public HashSet<Mob> getMobs(Polygon area) {
         //TODO
         return null;
     }

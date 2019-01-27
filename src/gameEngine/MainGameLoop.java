@@ -1,16 +1,18 @@
-package gameEngine;
-
-import java.util.ArrayList;
+package csc481_project;
 
 import entity.Entity;
 import entity.Mob;
 import processing.core.PApplet;
 import world.Room;
-import world.Terrain;
 
 public class MainGameLoop extends PApplet {
     private static Room room;
     private static Mob player;
+    private static long tick = 0;
+    //time increment of time through one loop through
+    private static int timeIncrement = 5000;
+    private static long deltaTime;
+    private static long beginTime;
 
     /**
      * dispatch events has the samller or same timestamp to handler
@@ -62,24 +64,35 @@ public class MainGameLoop extends PApplet {
             player.forceMovement(-5, 0);
         }
         if (keyCode == RIGHT) {
-            mobs.get(0).changeXSpeed(+5);
             //move right
+            player.forceMovement(+5, 0);
         }
         if (keyCode == UP) {
-            mobs.get(0).changeYSpeed(-5);
             //move up
+            player.forceMovement(0, +5);
         }
         if (keyCode == DOWN) {
-            mobs.get(0).changeYSpeed(+5);
             //move down
+            player.forceMovement(0, -5);
         }
         keyCode = 0;
+        deltaTime +=  System.currentTimeMillis() - beginTime;
+        beginTime = System.currentTimeMillis();
+        if(timeIncrement < deltaTime ) {
+            tick++;
+            deltaTime -= timeIncrement;
+            if(tick%5 == 0) {
+                System.out.println(tick);
+            }
+        }
+
     }
 
     public static void main(String args[]){
-        Entity player =
-        player.setlocation(0, 0);
-        mobs.add(player);
+//        player.setlocation(0, 0);
+        room.mobs.add(player);
+        //grab current time
+        beginTime = System.currentTimeMillis();
         PApplet.main("csc481_project.maingameLoop");
     }
 
