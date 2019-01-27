@@ -78,7 +78,7 @@ public class Room {
 
 
     void generateTerrain() {
-        for(int i = 0; i < (room_next_double() * 10); i++) {
+        for(int i = 0; i < (5 + room_next_double() * 10); i++) {
             //TODO change this longitude to however we get user's longitude in the end
             if (gameEngine.MainGameLoop.longitude > 39.0000) {
                 terrain.add(new Terrain((room_next_double() * width), (room_next_double() * height), this, "snow_mound"));

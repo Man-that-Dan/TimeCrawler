@@ -35,6 +35,7 @@ public class MainGameLoop extends PApplet {
     private static long beginTime;
     public static double longitude;
     public static boolean reverse = false;
+    private boolean roomComplete = false;
 //    public static HashSet<Effect> effects = new HashSet<>();
 
     /**
@@ -54,11 +55,11 @@ public class MainGameLoop extends PApplet {
         if (tick % 4 == 0) {
 
         }
-        if (tick % 100000000 == 0) {
-            for(int i = 0; i < 1; i++) {
+        if (tick % 10000 == 0) {
+            for(int i = 0; i < 3; i++) {
                 new SpawnEvent(new BigMonster(Rand.mob_next_double(0, room.width), Rand.mob_next_double(0, room.height), room, 1.0));
             }
-            for(int i = 0; i < 1; i++) {
+            for(int i = 0; i < 2; i++) {
                 new SpawnEvent(new Freezieboi(Rand.mob_next_double(0, room.width), Rand.mob_next_double(0, room.height), room, 1.0));
             }
         }
@@ -104,9 +105,10 @@ public class MainGameLoop extends PApplet {
             }
             reverse = false;
         }
-        if(room.mobs.size() == 1) {
+        if(room.mobs.size() == 1 && !roomComplete) {
+            System.out.println("Room complete!");
+            roomComplete = true;
             //Room has been defeated
-            System.out.println("Room defeated");
             room.generateDoors();
         }
     }
