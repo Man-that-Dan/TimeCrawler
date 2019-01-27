@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="core">
+    <archive path="/home/michael/git/cuhackit/lib/core.jar" />
+  </library>
+  <library name="jts-core-1.16.0">
+    <archive path="/home/michael/git/cuhackit/lib/jts-core-1.16.0.jar" />
+  </library>
+  <library name="org.json">
+    <archive path="/home/michael/git/cuhackit/lib/org.json.jar" />
+  </library>
+  <library name="org.locationtech.jts:jts-core:1.16.0">
+    <archive path="/home/michael/git/cuhackit/lib/jts-core-1.16.0.jar" />
+  </library>
+</eclipse-userlibraries>
+
