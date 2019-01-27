@@ -1,7 +1,8 @@
-package csc481_project;
+package gameEngine;
 
 import entity.Entity;
 import entity.Mob;
+import org.locationtech.jts.geom.Coordinate;
 import processing.core.PApplet;
 import world.Room;
 
@@ -43,19 +44,31 @@ public class MainGameLoop extends PApplet {
     //rendering
     public void draw() {
         background(255);
+        getUserInput();
         eventHandler();
         dispatchEvents();
         for(Entity go : room.mobs) {
 //            go.move();
             fill(160,20,20);
-            float[] info = go.getRenderInformation();
-            fill(go.poly.color.r, go.poly.color.g, go.poly.color.b);
+            Coordinate[] info = go.getRenderInformation();
+            fill(go.color.r, go.color.g, go.color.b);
             beginShape();
-            for(int i = 0; i < info.length; i += 2) {
-                vertex(info[i], info[i+1]);
+            for(int i = 0; i < info.length; i++) {
+                vertex((float) info[i].x, (float) info[i].y);
             }
             endShape();
         }
+        keyCode = 0;
+        deltaTime +=  System.currentTimeMillis() - beginTime;
+        beginTime = System.currentTimeMillis();
+        if(timeIncrement < deltaTime ) {
+            tick++;
+            deltaTime -= timeIncrement;
+            if(tick%5 == 0) {
+                System.out.println(tick);
+            }
+        }
+
     }
 
     public void getUserInput() {
@@ -75,17 +88,6 @@ public class MainGameLoop extends PApplet {
             //move down
             player.forceMovement(0, -5);
         }
-        keyCode = 0;
-        deltaTime +=  System.currentTimeMillis() - beginTime;
-        beginTime = System.currentTimeMillis();
-        if(timeIncrement < deltaTime ) {
-            tick++;
-            deltaTime -= timeIncrement;
-            if(tick%5 == 0) {
-                System.out.println(tick);
-            }
-        }
-
     }
 
     public static void main(String args[]){
@@ -93,7 +95,7 @@ public class MainGameLoop extends PApplet {
         room.mobs.add(player);
         //grab current time
         beginTime = System.currentTimeMillis();
-        PApplet.main("csc481_project.maingameLoop");
+        PApplet.main("gameEngine.MainGameLoop");
     }
 
 }

@@ -3,6 +3,7 @@ package world;
 import entity.Entity;
 import entity.Mob;
 import geometry.Rectangle;
+import geometry.RectangleFactory;
 import org.locationtech.jts.geom.Polygon;
 import render.Color;
 
@@ -25,7 +26,8 @@ public class Room {
     //2: West (-x)
     //3: South (-y)
     Room[] connections = new Room[] {null, null, null, null};
-    Rectangle[] simpleWalls;
+    Polygon[] simpleWalls;
+    Color[] simpleWallColors;
 
 
     public Room(int x, int y) {
@@ -39,13 +41,14 @@ public class Room {
                 terrain.add(new Terrain((room_next_double() * width), (room_next_double() * height)));
             }
         }
-        simpleWalls = new Rectangle[4];
-        simpleWalls[0] = new Rectangle(x+0.85, y, 0.15, 1.0);
-        simpleWalls[1] = new Rectangle(x, y + 0.85, 1.0, 0.15);
-        simpleWalls[2] = new Rectangle(x, y, 0.15, 1.0);
-        simpleWalls[3] = new Rectangle(x, y, 1.0, 0.15);
+        RectangleFactory rf = new RectangleFactory();
+        simpleWalls = new Polygon[4];
+        simpleWalls[0] = rf.createRectangle(x+0.85, y, 0.15, 1.0);
+        simpleWalls[1] = rf.createRectangle(x, y + 0.85, 1.0, 0.15);
+        simpleWalls[2] = rf.createRectangle(x, y, 0.15, 1.0);
+        simpleWalls[3] = rf.createRectangle(x, y, 1.0, 0.15);
         for(int i = 0; i < 4; i++) {
-            simpleWalls[i].color = new Color(255, 255, 255);
+            simpleWallColors[i] = new Color(255, 255, 255);
         }
     }
 
@@ -56,7 +59,7 @@ public class Room {
             //Make the rooms neighbors
             connections[pos] = newNeighbor;
             newNeighbor.connections[(pos + 2) % 4] = this;
-            simpleWalls[pos].color = new Color(0, 0, 0);
+            simpleWallColors[pos] = new Color(0, 0, 0);
             //return success
             return true;
         } else {
