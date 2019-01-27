@@ -1,5 +1,6 @@
 package world;
 
+import entity.Door;
 import entity.Mob;
 //import geometry.RectangleFactory;
 import org.locationtech.jts.geom.Polygon;
@@ -18,6 +19,8 @@ public class Room {
     public HashSet<Terrain> terrain = new HashSet<>();
     //enemies
     public HashSet<Mob> mobs = new HashSet<>();
+    //doors
+    public HashSet<Door> doors = new HashSet<>();
 
     //0: East (+x)
     //1: North (+y)
@@ -47,6 +50,34 @@ public class Room {
     }
 
     public Room init() {
+        generateTerrain();
+        addWalls();
+        return this;
+    }
+
+    public void generateDoors() {
+        for(int i = 0; i < connections.length; i++) {
+            if(connections[i] != null) {
+                switch(i) {
+                    case 0://east
+                        doors.add(new Door(800, 400, this, connections[i]));
+                        break;
+                    case 1://north
+                        doors.add(new Door(400, 800, this, connections[i]));
+                        break;
+                    case 2://west
+                        doors.add(new Door(0, 400, this, connections[i]));
+                        break;
+                    case 3://south
+                        doors.add(new Door(400, 0, this, connections[i]));
+                        break;
+                }
+            }
+        }
+    }
+
+
+    void generateTerrain() {
         for(int i = 0; i < (room_next_double() * 10); i++) {
             //TODO change this longitude to however we get user's longitude in the end
             if (gameEngine.MainGameLoop.longitude > 39.0000) {
@@ -54,13 +85,15 @@ public class Room {
             } else {
                 terrain.add(new Terrain((room_next_double() * width), (room_next_double() * height), this));
             }
-
         }
+    }
+
+    void addWalls() {
         terrain.add(new Terrain(0 - 10, 0, this, "wallv"));
         terrain.add(new Terrain(800 - 10, 0, this, "wallv"));
         terrain.add(new Terrain(0, 0 - 10, this, "wallh"));
         terrain.add(new Terrain(0, 800 - 10, this, "wallh"));
-        return this;
+
     }
 
     boolean setConnection(Room newNeighbor, int pos) {

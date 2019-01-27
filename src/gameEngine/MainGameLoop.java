@@ -100,6 +100,10 @@ public class MainGameLoop extends PApplet {
             }
             reverse = false;
         }
+        if(room.mobs.isEmpty()) {
+            //Room has been defeated
+            room.generateDoors();
+        }
     }
     PFont font;
     /**
@@ -139,6 +143,15 @@ public class MainGameLoop extends PApplet {
                 endShape();
             }
             for (Entity go : room.terrain) {
+                Coordinate[] info = go.getRenderInformation();
+                fill(go.color.r, go.color.g, go.color.b);
+                beginShape();
+                for (int i = 0; i < info.length; i++) {
+                    vertex((float) (info[i].x + HUD_WIDTH), (float) (info[i].y + HUD_WIDTH));
+                }
+                endShape();
+            }
+            for (Entity go : room.doors) {
                 Coordinate[] info = go.getRenderInformation();
                 fill(go.color.r, go.color.g, go.color.b);
                 beginShape();

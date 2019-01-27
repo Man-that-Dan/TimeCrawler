@@ -59,6 +59,15 @@ public abstract class Entity {
         }
         return ret;
     }
+    public HashSet<Door> getDoorCollisions() {
+        HashSet<Door> ret = new HashSet<>();
+        for(Door d : room.doors) {
+            if(d != this && d.poly.intersects(poly)) {
+                ret.add(d);
+            }
+        }
+        return ret;
+    }
 
     public Coordinate[] getRenderInformation() {
         return poly.getCoordinates();
