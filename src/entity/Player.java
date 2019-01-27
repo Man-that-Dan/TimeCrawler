@@ -46,6 +46,23 @@ public class Player extends Mob {
             case 3: AoE = rf.createRectangle((playerCenter.x), (playerCenter.y - 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
                     attacked = new AttackEvent(this, AoE, attack);
                     break;
+            //north east attack
+            case 4: AoE = rf.createRectangle((playerCenter.x + 30), (playerCenter.y + 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
+                attacked = new AttackEvent(this, AoE, attack);
+                break;
+            //north west attack
+            case 5: AoE = rf.createRectangle((playerCenter.x - 30), (playerCenter.y + 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
+                attacked = new AttackEvent(this, AoE, attack);
+                break;
+            //south west attack
+            case 6: AoE = rf.createRectangle((playerCenter.x - 30), (playerCenter.y - 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
+                attacked = new AttackEvent(this, AoE, attack);
+                break;
+            //south east attack
+            case 7: AoE = rf.createRectangle((playerCenter.x + 30), (playerCenter.y - 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
+                attacked = new AttackEvent(this, AoE, attack);
+                break;
+
         };
     };
 
