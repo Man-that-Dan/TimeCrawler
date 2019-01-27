@@ -8,10 +8,13 @@ import entity.Player;
 import event.Event;
 import event.SpawnEvent;
 import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Polygon;
 import processing.core.PApplet;
+import render.Effect;
 import world.Rand;
 import world.Room;
 
+import java.util.HashSet;
 import java.util.Random;
 
 public class MainGameLoop extends PApplet {
@@ -24,6 +27,7 @@ public class MainGameLoop extends PApplet {
     private static long deltaTime;
     private static long beginTime;
     public static double longitude;
+    public static HashSet<Effect> effects = new HashSet<>();
 
     /**
      * dispatch events has the samller or same timestamp to handler
@@ -109,7 +113,15 @@ public class MainGameLoop extends PApplet {
                 vertex((float) (info[i].x + HUD_WIDTH), (float) (info[i].y + HUD_WIDTH));
             }
             endShape();
-
+        }
+        for(Effect effect : effects) {
+            Coordinate[] info = effect.poly.getCoordinates();
+            fill(effect.color.r, effect.color.g, effect.color.b);
+            beginShape();
+            for(int i = 0; i < info.length; i++) {
+                vertex((float) (info[i].x + HUD_WIDTH), (float) (info[i].y + HUD_WIDTH));
+            }
+            endShape();
         }
         eventHandler();
     }

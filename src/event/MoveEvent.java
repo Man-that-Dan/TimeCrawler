@@ -15,7 +15,7 @@ public class MoveEvent extends Event {
     }
     public boolean execute() {
         mob.transpose(moved_x, moved_y);
-        if(mob.getTerrainCollisions().size() == 0) {
+        if(mob.getTerrainCollisions().isEmpty() && mob.getMobCollisions().isEmpty()) {
             return true;
         } else {
             mob.transpose(-moved_x, -moved_y);

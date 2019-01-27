@@ -48,9 +48,14 @@ public abstract class Entity {
         }
         return ret;
     }
-    public HashSet<Entity> getMobCollisions() {
-        //TODO
-        return null;
+    public HashSet<Mob> getMobCollisions() {
+        HashSet<Mob> ret = new HashSet<>();
+        for(Mob m : room.mobs) {
+            if(m != this && m.poly.intersects(poly)) {
+                ret.add(m);
+            }
+        }
+        return ret;
     }
 
     public Coordinate[] getRenderInformation() {

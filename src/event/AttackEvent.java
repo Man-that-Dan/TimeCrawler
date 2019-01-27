@@ -1,7 +1,10 @@
 package event;
 
 import entity.Mob;
+import gameEngine.MainGameLoop;
 import org.locationtech.jts.geom.Polygon;
+import render.Color;
+import render.Effect;
 
 import java.util.HashSet;
 
@@ -20,6 +23,7 @@ public class AttackEvent extends Event {
     }
 
     public boolean execute() {
+        MainGameLoop.effects.add(new Effect(areaOfEffect, new Color(80, 255, 80)));
         for(Mob m : mob.room.getMobs(areaOfEffect)) {
             if(m != mob) {
                 KillEvent ke = m.hurt(mob, damage);
