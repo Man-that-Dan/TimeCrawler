@@ -2,8 +2,10 @@ package world;
 
 import entity.Entity;
 import geometry.RectangleFactory;
+import render.Color;
 
 public class Terrain extends Entity {
+    public static final double DEFAULT_TERRAIN_SIZE = 80;
     //type property to decide what to render;
     String type;
 
@@ -14,10 +16,19 @@ public class Terrain extends Entity {
     public Terrain(double x, double y, Room room, String settype){
         super(x, y, room);
         RectangleFactory rf = new RectangleFactory();
-        this.poly = rf.createRectangle(x, y, Rand.room_next_double() * 10, Rand.room_next_double() * 10);
+        this.poly = rf.createRectangle(x, y, Rand.room_next_double() * DEFAULT_TERRAIN_SIZE, Rand.room_next_double() * DEFAULT_TERRAIN_SIZE);
         //type can be used when rendering to decide what color this terrain is, e.g.  rocks are brown
         //type can be used when rendering to decide what color this terrain is, e.g.  rocks are brown
         type = settype;
+
+        switch(type) {
+            case "Rock":
+                this.color = new Color(165, 100, 42);
+                break;
+            case "snow_mound":
+                this.color = new Color(200, 200, 255);
+                break;
+        }
     };
 
 

@@ -5,6 +5,7 @@ import event.AttackEvent;
 import event.Event;
 import geometry.RectangleFactory;
 import org.locationtech.jts.geom.Polygon;
+import render.Color;
 import world.Room;
 
 public class BigMonster extends Enemy {
@@ -15,6 +16,7 @@ public class BigMonster extends Enemy {
         this.poly = rf.createRectangle(x - 5, y - 5, 10, 10);
         attack = 15;
         speed = 1;
+        this.color = new Color(255, 0, 0);
     }
 
     //Big AoE attack

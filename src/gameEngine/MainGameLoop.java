@@ -1,5 +1,6 @@
 package gameEngine;
 
+import enemies.BigMonster;
 import maps.Locator;
 import entity.Entity;
 import entity.Mob;
@@ -10,6 +11,8 @@ import org.locationtech.jts.geom.Coordinate;
 import processing.core.PApplet;
 import world.Rand;
 import world.Room;
+
+import java.util.Random;
 
 public class MainGameLoop extends PApplet {
     private static Room room;
@@ -30,10 +33,17 @@ public class MainGameLoop extends PApplet {
         }
         if(tick % 2 == 0) {
 
-        } else if (tick % 3 == 0) {
+        }
+        if (tick % 3 == 0) {
 
-        } else if (tick % 4 == 0) {
+        }
+        if (tick % 4 == 0) {
 
+        }
+        if (tick % 100 == 0) {
+            for(int i = 0; i < 3; i++) {
+                new SpawnEvent(new BigMonster(Rand.mob_next_double(0, room.width), Rand.mob_next_double(0, room.height), room, 1.0));
+            }
         }
     }
 
@@ -80,7 +90,6 @@ public class MainGameLoop extends PApplet {
         background(255);
         getUserInput();
         eventHandler();
-        dispatchEvents();
         for(Entity go : room.mobs) {
             Coordinate[] info = go.getRenderInformation();
             fill(go.color.r, go.color.g, go.color.b);
@@ -89,6 +98,16 @@ public class MainGameLoop extends PApplet {
                 vertex((float) info[i].x, (float) info[i].y);
             }
             endShape();
+        }
+        for(Entity go : room.terrain) {
+            Coordinate[] info = go.getRenderInformation();
+            fill(go.color.r, go.color.g, go.color.b);
+            beginShape();
+            for(int i = 0; i < info.length; i++) {
+                vertex((float) info[i].x, (float) info[i].y);
+            }
+            endShape();
+
         }
         eventHandler();
     }
@@ -114,7 +133,7 @@ public class MainGameLoop extends PApplet {
     }
 
     public static void main(String args[]){
-        Rand.init(5);
+        Rand.init((new Random()).nextLong());
         room = new Room(0,0);
         room.init();
         Locator location = new Locator();
@@ -122,7 +141,7 @@ public class MainGameLoop extends PApplet {
         longitude = 0.5;
 //        player.setlocation(0, 0);
 //        room.mobs.add(player);
-        player = new Player(50, 50, room);
+        player = new Player(400, 400, room);
         new SpawnEvent(player);
         //grab current time
         beginTime = System.currentTimeMillis();
