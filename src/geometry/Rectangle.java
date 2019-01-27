@@ -3,6 +3,7 @@ package geometry;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Polygon;
+import render.Color;
 
 public class Rectangle{
     public double x;
@@ -10,6 +11,7 @@ public class Rectangle{
     public double width;
     public double height;
     public Polygon rect;
+    public Color color = new Color(0,0,0);
 
     public Rectangle(double x, double y, double width, double height) {
         this.x = x;
@@ -24,4 +26,5 @@ public class Rectangle{
     public boolean intersects(Polygon polygon) {
         return rect.intersects(polygon);
     }
+
 }
