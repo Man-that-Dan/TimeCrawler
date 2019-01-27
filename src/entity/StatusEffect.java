@@ -3,11 +3,12 @@ package entity;
 import event.StatusEvent;
 
 public abstract class StatusEffect implements Comparable<StatusEffect> {
-    String type;
-    int expiration_timer;
+    public String type;
+    public int expiration_timer;
 
     public StatusEffect(String t, int ticks){
-      expiration_timer = ticks;
+        type = t;
+        expiration_timer = ticks;
     };
     public StatusEffect(StatusEffect copy) {
         this.type = copy.type;

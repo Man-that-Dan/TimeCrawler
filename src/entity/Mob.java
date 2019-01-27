@@ -60,6 +60,7 @@ public abstract class Mob extends Entity {
             }
         }
         if(!alreadyHere) {
+            statusEffects.add(e);
             e.applyToMob(this);
         }
     }

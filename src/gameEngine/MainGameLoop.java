@@ -1,6 +1,8 @@
 package gameEngine;
 
 import enemies.BigMonster;
+import enemies.Freezieboi;
+import entity.StatusEffect;
 import event.*;
 import maps.Locator;
 import entity.Entity;
@@ -53,6 +55,9 @@ public class MainGameLoop extends PApplet {
         if (tick % 100000000 == 0) {
             for(int i = 0; i < 1; i++) {
                 new SpawnEvent(new BigMonster(Rand.mob_next_double(0, room.width), Rand.mob_next_double(0, room.height), room, 1.0));
+            }
+            for(int i = 0; i < 1; i++) {
+                new SpawnEvent(new Freezieboi(Rand.mob_next_double(0, room.width), Rand.mob_next_double(0, room.height), room, 1.0));
             }
         }
     }
@@ -158,7 +163,12 @@ public class MainGameLoop extends PApplet {
 
             textFont(font, 16);
             fill(0);
-            text("" + player.health, 20, 20);
+            String hudString = player.health + "";
+            for(StatusEffect se : player.statusEffects) {
+                hudString += " " + se.type + ": " + se.expiration_timer;
+            }
+            text(hudString, 20, 20);
+
             ///HUD
 
             eventHandler();

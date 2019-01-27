@@ -12,11 +12,9 @@ import world.Rand;
 import world.Room;
 
 public class BigMonster extends Enemy {
-
     int ticksSinceLastAttack = 0;
-
     boolean hasRespondedToMovementFailure = false;
-    RectangleFactory rf = new RectangleFactory();
+
     public BigMonster(double x, double y, Room room, double diff){
         super(x, y, room, diff);
         this.poly = rf.createRectangle(x - 5, y - 5, 10, 10);
