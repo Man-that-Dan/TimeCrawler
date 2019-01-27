@@ -1,5 +1,6 @@
 package gameEngine;
 
+import maps.Locator;
 import entity.Entity;
 import entity.Mob;
 import entity.Player;
@@ -10,13 +11,14 @@ import processing.core.PApplet;
 import world.Room;
 
 public class MainGameLoop extends PApplet {
-    private static Room room;
+    private static Room room = new Room(0,0);
     private static Mob player;
     private static long tick = 0;
     //time increment of time through one loop through
     private static int timeIncrement = 5000;
     private static long deltaTime;
     private static long beginTime;
+    public static double longitude;
 
     /**
      * dispatch events has the samller or same timestamp to handler
@@ -113,6 +115,8 @@ public class MainGameLoop extends PApplet {
     }
 
     public static void main(String args[]){
+        Locator location = new Locator();
+        longitude = location.getLong();
 //        player.setlocation(0, 0);
 //        room.mobs.add(player);
         new SpawnEvent(new Player(50, 50));

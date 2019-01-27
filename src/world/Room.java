@@ -24,6 +24,10 @@ public class Room {
     //1: North (+y)
     //2: West (-x)
     //3: South (-y)
+    //4 north east (+x +y)
+    //5 north west (-x +y)
+    //6 south west (-x -y)
+    //7 south east  (+x -y)
     Room[] connections = new Room[] {null, null, null, null};
     Polygon[] simpleWalls;
     Color[] simpleWallColors;
@@ -35,7 +39,7 @@ public class Room {
         double longitude = 0; //TODO remove
         for(int i = 0; i < (room_next_double() * 10); i++) {
             //TODO change this longitude to however we get user's longitude in the end
-            if (longitude > 39.0000) {
+            if (gameEngine.MainGameLoop.longitude > 39.0000) {
                 terrain.add(new Terrain((room_next_double() * width), (room_next_double() * height), "snow_mound"));
             } else {
                 terrain.add(new Terrain((room_next_double() * width), (room_next_double() * height)));
