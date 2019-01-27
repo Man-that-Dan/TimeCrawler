@@ -58,23 +58,23 @@ public class Player extends Mob {
                     break;
             //north west attack
             case 5: AoE = rf.createRectangle((playerCenter.x - 30), (playerCenter.y + 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
-                    AffineTransformation rotright = new AffineTransformation();
-                    rotright.rotate(45.0);
-                    AoE = new GeometryFactory().createPolygon((rotright.transform(AoE)).getCoordinates());
+                    AffineTransformation rotleft = new AffineTransformation();
+                    rotleft.rotate(45.0);
+                    AoE = new GeometryFactory().createPolygon((rotleft.transform(AoE)).getCoordinates());
                     attacked = new AttackEvent(this, AoE, attack);
                     break;
             //south west attack
             case 6: AoE = rf.createRectangle((playerCenter.x - 30), (playerCenter.y - 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
-                    AffineTransformation rotright = new AffineTransformation();
-                    rotright.rotate(135.0);
-                    AoE = new GeometryFactory().createPolygon((rotright.transform(AoE)).getCoordinates());
+                    AffineTransformation rotlefter = new AffineTransformation();
+                    rotlefter.rotate(135.0);
+                    AoE = new GeometryFactory().createPolygon((rotlefter.transform(AoE)).getCoordinates());
                     attacked = new AttackEvent(this, AoE, attack);
                     break;
             //south east attack
             case 7: AoE = rf.createRectangle((playerCenter.x + 30), (playerCenter.y - 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
-                    AffineTransformation rotright = new AffineTransformation();
-                    rotright.rotate(-135.0);
-                    AoE = new GeometryFactory().createPolygon((rotright.transform(AoE)).getCoordinates());
+                    AffineTransformation rotrighter = new AffineTransformation();
+                    rotrighter.rotate(-135.0);
+                    AoE = new GeometryFactory().createPolygon((rotrighter.transform(AoE)).getCoordinates());
                     attacked = new AttackEvent(this, AoE, attack);
                     break;
 
