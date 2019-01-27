@@ -1,6 +1,9 @@
 package entity;
 
+import geometry.Rectangle;
+
 public class Entity {
-    double posx;
-    double posy;
+    public double posx;
+    public double posy;
+    public Rectangle poly;
 }
