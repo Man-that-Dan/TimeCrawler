@@ -59,22 +59,22 @@ public class Player extends Mob {
             //north west attack
             case 5: AoE = rf.createRectangle((playerCenter.x - 30), (playerCenter.y + 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
                     AffineTransformation rotleft = new AffineTransformation();
-                    rotright.rotate(45.0);
-                    AoE = new GeometryFactory().createPolygon((rotright.transform(AoE)).getCoordinates());
+                    rotleft.rotate(45.0);
+                    AoE = new GeometryFactory().createPolygon((rotleft.transform(AoE)).getCoordinates());
                     attacked = new AttackEvent(this, AoE, attack);
                     break;
             //south west attack
             case 6: AoE = rf.createRectangle((playerCenter.x - 30), (playerCenter.y - 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
-                    AffineTransformation rotrlefter = new AffineTransformation();
-                    rotright.rotate(135.0);
-                    AoE = new GeometryFactory().createPolygon((rotright.transform(AoE)).getCoordinates());
+                    AffineTransformation rotlefter = new AffineTransformation();
+                    rotlefter.rotate(135.0);
+                    AoE = new GeometryFactory().createPolygon((rotlefter.transform(AoE)).getCoordinates());
                     attacked = new AttackEvent(this, AoE, attack);
                     break;
             //south east attack
             case 7: AoE = rf.createRectangle((playerCenter.x + 30), (playerCenter.y - 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
                     AffineTransformation rotrighter = new AffineTransformation();
-                    rotright.rotate(-135.0);
-                    AoE = new GeometryFactory().createPolygon((rotright.transform(AoE)).getCoordinates());
+                    rotrighter.rotate(-135.0);
+                    AoE = new GeometryFactory().createPolygon((rotrighter.transform(AoE)).getCoordinates());
                     attacked = new AttackEvent(this, AoE, attack);
                     break;
 
