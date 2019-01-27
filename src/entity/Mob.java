@@ -66,7 +66,7 @@ public abstract class Mob extends Entity {
 
     public void tickStatuses() {
         while(!statusEffects.isEmpty()){
-            if(statusEffects.peek().expiration_timer == 0) statusEffects.poll();
+            if(statusEffects.peek().expiration_timer == 0) statusEffects.poll().removeFromMob(this);
             else break;
         }
         for(StatusEffect statusEffect : statusEffects) {

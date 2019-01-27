@@ -21,6 +21,7 @@ public class Freezieboi extends Enemy {
     public void attack(){
         Polygon AoE = rf.createRectangle(this.x - 1, this.y - 1, 2, 2);
         new AttackEvent(this, AoE, attack * difficulty);
+        new StatusEvent(this, AoE, new FrostStatus(frost_duration));
 //        new StatusEvent(this, AoE, new StatusEffect("Freeze", 3));
     };
 
