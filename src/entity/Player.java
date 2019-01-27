@@ -58,21 +58,21 @@ public class Player extends Mob {
                     break;
             //north west attack
             case 5: AoE = rf.createRectangle((playerCenter.x - 30), (playerCenter.y + 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
-                    AffineTransformation rotright = new AffineTransformation();
+                    AffineTransformation rotleft = new AffineTransformation();
                     rotright.rotate(45.0);
                     AoE = new GeometryFactory().createPolygon((rotright.transform(AoE)).getCoordinates());
                     attacked = new AttackEvent(this, AoE, attack);
                     break;
             //south west attack
             case 6: AoE = rf.createRectangle((playerCenter.x - 30), (playerCenter.y - 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
-                    AffineTransformation rotright = new AffineTransformation();
+                    AffineTransformation rotrlefter = new AffineTransformation();
                     rotright.rotate(135.0);
                     AoE = new GeometryFactory().createPolygon((rotright.transform(AoE)).getCoordinates());
                     attacked = new AttackEvent(this, AoE, attack);
                     break;
             //south east attack
             case 7: AoE = rf.createRectangle((playerCenter.x + 30), (playerCenter.y - 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
-                    AffineTransformation rotright = new AffineTransformation();
+                    AffineTransformation rotrighter = new AffineTransformation();
                     rotright.rotate(-135.0);
                     AoE = new GeometryFactory().createPolygon((rotright.transform(AoE)).getCoordinates());
                     attacked = new AttackEvent(this, AoE, attack);
