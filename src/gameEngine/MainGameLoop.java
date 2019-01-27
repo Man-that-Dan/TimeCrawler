@@ -2,7 +2,9 @@ package gameEngine;
 
 import entity.Entity;
 import entity.Mob;
+import entity.Player;
 import event.Event;
+import event.SpawnEvent;
 import org.locationtech.jts.geom.Coordinate;
 import processing.core.PApplet;
 import world.Room;
@@ -112,7 +114,8 @@ public class MainGameLoop extends PApplet {
 
     public static void main(String args[]){
 //        player.setlocation(0, 0);
-        room.mobs.add(player);
+//        room.mobs.add(player);
+        new SpawnEvent(new Player(50, 50));
         //grab current time
         beginTime = System.currentTimeMillis();
         PApplet.main("gameEngine.MainGameLoop");

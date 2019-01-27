@@ -2,6 +2,7 @@ package entity;
 
 import event.AttackEvent;
 import event.Event;
+import event.MoveEvent;
 import geometry.RectangleFactory;
 import org.locationtech.jts.algorithm.Centroid;
 import org.locationtech.jts.geom.Coordinate;
@@ -10,7 +11,7 @@ import org.locationtech.jts.geom.Envelope;
 
 public class Player extends Mob {
     //the player's currently afflicted statuses
-    status_effect[] statuses = new status_effect[5];
+    StatusEffect[] statuses = new StatusEffect[5];
     double storedMovementX;
     double storedMovementY;
     RectangleFactory rf = new RectangleFactory();
@@ -69,5 +70,16 @@ public class Player extends Mob {
     public void storeMovement(double dx, double dy) {
         storedMovementX += dx;
         storedMovementY += dy;
+    }
+
+    public void updateAI() {
+        if(storedMovementX == 0 && storedMovementY == 0)  {
+
+        } else {
+            double scale = 1 / (storedMovementX * storedMovementX + storedMovementY * storedMovementY);
+            new MoveEvent(this, storedMovementX * scale, storedMovementY * scale);
+            storedMovementX = 0;
+            storedMovementY = 0;
+        }
     }
 }
