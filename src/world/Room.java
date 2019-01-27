@@ -12,8 +12,8 @@ import static world.Rand.room_next_double;
 public class Room {
     int x;
     int y;
-    public static double width = 800;
-    public static double height = 800;
+    public static final double width = 800;
+    public static final double height = 800;
     //set of terrain objects
     public HashSet<Terrain> terrain = new HashSet<>();
     //enemies

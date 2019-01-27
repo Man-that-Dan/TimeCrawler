@@ -1,5 +1,6 @@
 package entity;
 
+import event.Event;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.CoordinateFilter;
 import org.locationtech.jts.geom.Polygon;
@@ -71,5 +72,9 @@ public abstract class Entity {
             return this.poly.equals(other.poly) && this.color.equals(other.color) && this.room.equals(other.room);
         }
         return false;
+    }
+
+    public void respond(Event e) {
+
     }
 }

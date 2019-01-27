@@ -9,6 +9,7 @@ public class KillEvent extends Event{
         super();
         this.killed = killed;
         this.damageSource = damageSource;
+        this.generator = killed;
     }
 
     public boolean execute() {

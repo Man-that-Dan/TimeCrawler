@@ -93,7 +93,7 @@ public class Player extends Mob {
         if(storedMovementX == 0 && storedMovementY == 0)  {
 
         } else {
-            double scale = speed / (storedMovementX * storedMovementX + storedMovementY * storedMovementY);
+            double scale = speed / Math.sqrt((storedMovementX * storedMovementX + storedMovementY * storedMovementY));
             new MoveEvent(this, storedMovementX * scale, storedMovementY * scale);
             storedMovementX = 0;
             storedMovementY = 0;

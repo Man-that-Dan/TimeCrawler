@@ -7,7 +7,7 @@ public class SpawnEvent extends Event {
     public SpawnEvent(Mob spawning) {
         super();
         this.spawning = spawning;
-        System.out.println("Spawn event created");
+        this.generator = spawning;
     }
 
     public boolean execute() {

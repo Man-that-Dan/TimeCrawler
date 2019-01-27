@@ -14,6 +14,7 @@ public class AttackEvent extends Event {
     public AttackEvent(Mob attacker, Polygon areaOfEffect, double damage) {
         super();
         this.mob = attacker;
+        this.generator = attacker;
         this.areaOfEffect = areaOfEffect;
         this.damage = damage;
     }

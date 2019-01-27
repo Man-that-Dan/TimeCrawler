@@ -1,11 +1,14 @@
 package enemies;
 
 import entity.Mob;
+import entity.Player;
 import event.AttackEvent;
 import event.Event;
+import event.MoveEvent;
 import geometry.RectangleFactory;
 import org.locationtech.jts.geom.Polygon;
 import render.Color;
+import world.Rand;
 import world.Room;
 
 public class BigMonster extends Enemy {
@@ -26,6 +29,31 @@ public class BigMonster extends Enemy {
     };
 
     public void updateAI() {
-        //TODO
+        Player target = null;
+        for(Mob m : room.mobs) {
+            if(m instanceof Player) {
+                target = (Player) m;
+                break;
+            }
+        }
+        double dx = target.x - x;
+        double dy = target.y - y;
+        if(dx == 0 && dy == 0) {
+
+        } else {
+            new MoveEvent(this, speed * dx / Math.sqrt((dx * dx + dy * dy)), speed * dy / Math.sqrt((dx * dx + dy * dy)));
+        }
+    }
+
+    @Override
+    public void respond(Event e) {
+        if(e instanceof MoveEvent) {
+            MoveEvent me = (MoveEvent) e;
+            if(me.moved_x == 0 && me.moved_y == 0) {
+                double dx = Rand.mob_next_double(-1, 1);
+                double dy = Rand.mob_next_double(-1, 1);
+                new MoveEvent(this, dx * speed / Math.sqrt(dx * dx + dy * dy), dy * speed / Math.sqrt(dx * dx + dy * dy));
+            }
+        }
     }
 }

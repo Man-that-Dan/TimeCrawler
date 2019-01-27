@@ -15,6 +15,7 @@ import world.Room;
 import java.util.Random;
 
 public class MainGameLoop extends PApplet {
+    public static final double HUD_WIDTH = 50;
     private static Room room;
     private static Player player;
     private static long tick = 0;
@@ -65,7 +66,9 @@ public class MainGameLoop extends PApplet {
             while(!Event.event_queue.isEmpty() && !isDone) {
                 Event next = Event.event_queue.peek();
                 if(next.priority < 1.0) {
-                    Event.event_queue.poll().execute();
+                    if(!Event.event_queue.poll().execute()) {
+                        next.generator.respond(next);
+                    }
                 } else {
                     isDone = true;
                 }
@@ -77,8 +80,7 @@ public class MainGameLoop extends PApplet {
      *
      */
     public void settings() {
-        size(800,800);
-
+        size((int) (Room.width + HUD_WIDTH),(int) (Room.height + HUD_WIDTH));
     }
 
     public void setup() {
@@ -95,7 +97,7 @@ public class MainGameLoop extends PApplet {
             fill(go.color.r, go.color.g, go.color.b);
             beginShape();
             for(int i = 0; i < info.length; i++) {
-                vertex((float) info[i].x, (float) info[i].y);
+                vertex((float) (info[i].x + HUD_WIDTH), (float) (info[i].y + HUD_WIDTH));
             }
             endShape();
         }
@@ -104,7 +106,7 @@ public class MainGameLoop extends PApplet {
             fill(go.color.r, go.color.g, go.color.b);
             beginShape();
             for(int i = 0; i < info.length; i++) {
-                vertex((float) info[i].x, (float) info[i].y);
+                vertex((float) (info[i].x + HUD_WIDTH), (float) (info[i].y + HUD_WIDTH));
             }
             endShape();
 

@@ -17,6 +17,7 @@ public class StatusEvent extends Event {
         this.areaOfEffect = areaOfEffect;
         this.effect = s;
         this.singleTarget = null;
+        this.generator = source;
     }
 
     public StatusEvent(Mob source, Mob target, StatusEffect s) {
