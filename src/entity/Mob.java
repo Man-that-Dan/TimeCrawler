@@ -8,14 +8,16 @@ import org.locationtech.jts.geom.Coordinate;
 import world.Room;
 
 import java.util.HashSet;
+import java.util.PriorityQueue;
 
 public abstract class Mob extends Entity {
+    public boolean spawned = false;
     public double attack;
     public double health;
     public double speed;
     public int direction;
     public double difficulty;
-    public HashSet<StatusEffect> statusEffects = new HashSet<>();
+    public PriorityQueue<StatusEffect> statusEffects = new PriorityQueue<>();
 
     public Mob(double x, double y, Room room) {
         super(x, y, room);
@@ -31,7 +33,7 @@ public abstract class Mob extends Entity {
             return null;
         } else {
             this.health -= damage;
-            if (this.health <= 0) {
+            if(this.health <= 0) {
                 return new KillEvent(this, source);
             }
             return null;
@@ -49,6 +51,27 @@ public abstract class Mob extends Entity {
     }
 
     public void applyStatus(StatusEffect e) {
+        boolean alreadyHere = false;
+        for(StatusEffect se : statusEffects) {
+            if(e.equals(se)) {
+                alreadyHere = true;
+                se.expiration_timer += e.expiration_timer;
+                break;
+            }
+        }
+        if(!alreadyHere) {
+            statusEffects.add(e);
+            e.applyToMob(this);
+        }
+    }
 
+    public void tickStatuses() {
+        while(!statusEffects.isEmpty()){
+            if(statusEffects.peek().expiration_timer == 0) statusEffects.poll().removeFromMob(this);
+            else break;
+        }
+        for(StatusEffect statusEffect : statusEffects) {
+            statusEffect.expiration_timer--;
+        }
     }
 }

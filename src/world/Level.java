@@ -4,20 +4,25 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Level {
-    Room[][] rooms;
-    int width;
-    int height;
+    public Room[][] rooms;
+    public int width;
+    public int height;
 
-    Level previous;
-    Level next;
+    public Level previous;
+    public Level next;
 
-    double difficulty;
+    public double difficulty;
 
     public Level(Level previous) {
-        difficulty = scaleDifficulty(previous.difficulty);
+        if(previous != null) {
+            difficulty = scaleDifficulty(previous.difficulty);
+        } else {
+            difficulty = 1.0;
+        }
         width = (int)(previous.width * difficulty);
         height = (int)(previous.height * difficulty);
         rooms = new Room[width][height];
+        generateRooms();
     }
 
     private void generateRooms() {

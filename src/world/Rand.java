@@ -9,7 +9,7 @@ public class Rand {
     public static Random mob_rand;
 
     public static int world_next_int(int lowbound_inclusive, int highbound_exclusive) {
-        return lowbound_inclusive + (int) (world_rand.nextDouble() * highbound_exclusive);
+        return lowbound_inclusive + (int) (world_rand.nextDouble() * (highbound_exclusive - lowbound_inclusive));
     }
     public static double room_next_double() {
         return room_rand.nextDouble();
@@ -23,6 +23,6 @@ public class Rand {
     }
 
     public static double mob_next_double(double lowbound_inclusive, double highbound_exclusive) {
-        return lowbound_inclusive + highbound_exclusive * mob_rand.nextDouble();
+        return lowbound_inclusive + (highbound_exclusive - lowbound_inclusive) * mob_rand.nextDouble();
     }
 }

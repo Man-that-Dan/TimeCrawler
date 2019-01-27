@@ -1,10 +1,13 @@
 package event;
 
+import entity.Entity;
+
 import java.util.PriorityQueue;
 
 public abstract class Event implements Comparable<Event> {
     public static PriorityQueue<Event> event_queue = new PriorityQueue<>();
     public double priority;
+    public Entity generator;
     public abstract boolean execute();
     public abstract boolean revert();
 
