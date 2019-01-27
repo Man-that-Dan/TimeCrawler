@@ -9,8 +9,6 @@ import world.Rand;
 import world.Room;
 
 public class Freezieboi extends Enemy {
-    int damage = 5;
-    int speed = 2;
     int frost_duration = 50;
     int ticksSinceLastAttack = 0;
     boolean hasRespondedToMovementFailure = false;
@@ -19,6 +17,9 @@ public class Freezieboi extends Enemy {
         super(x, y, room, diff);
         this.poly = rf.createRectangle(x - 4, y - 4, 8, 8);
         this.color = new Color(100,100,255);
+        health = 80;
+        attack = 5;
+        speed = 2;
     }
 
     //long range horizontal freezing attack
