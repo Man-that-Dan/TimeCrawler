@@ -23,4 +23,6 @@ public abstract class Entity {
         //TODO
         return null;
     }
+
+    public abstract float[] getRenderInformation();
 }

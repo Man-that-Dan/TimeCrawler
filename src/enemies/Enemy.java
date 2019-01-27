@@ -6,7 +6,7 @@ import entity.*;
 import geometry.Rectangle;
 
 //enemy base class - abstract class
-public class Enemy extends mob {
+public class Enemy extends Mob {
     double difficulty;
     int damage = 5;
     int speed = 5;

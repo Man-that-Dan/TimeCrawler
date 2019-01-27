@@ -15,9 +15,9 @@ public class Room {
     public static int width = 100;
     public static int height = 100;
     //set of terrain objects
-    HashSet<Terrain> terrain;
+    public HashSet<Terrain> terrain;
     //enemies
-    HashSet<Entity> mobs;
+    public HashSet<Entity> mobs;
 
     //0: East (+x)
     //1: North (+y)
