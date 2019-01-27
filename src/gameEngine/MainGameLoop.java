@@ -10,6 +10,7 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Polygon;
 import processing.core.PApplet;
 import processing.core.PFont;
+import processing.core.PImage;
 import render.Effect;
 import world.Rand;
 import world.Room;
@@ -103,6 +104,9 @@ public class MainGameLoop extends PApplet {
     }
 
     public void setup() {
+        Locator location = new Locator();
+//      longitude = location.getLong();
+        longitude = 0.5;
         smooth();
         noStroke();
         font = createFont("Arial",16,true); // STEP 2 Create Font
@@ -110,7 +114,13 @@ public class MainGameLoop extends PApplet {
     //rendering
     public void draw() {
         if(player.health > 0) {
-            background(255);
+            PImage bg;
+            if(longitude < 39.00) {
+                bg = loadImage("../../Assets/Snowfloor.jpg");
+            } else {
+                bg = loadImage("../../Assets/Regularfloor.jpg");
+            }
+            background(bg);
             getUserInput();
             eventHandler();
             for (Entity go : room.mobs) {
@@ -196,9 +206,7 @@ public class MainGameLoop extends PApplet {
         Rand.init((new Random()).nextLong());
         room = new Room(0,0);
         room.init();
-        Locator location = new Locator();
-//        longitude = location.getLong();
-        longitude = 0.5;
+
 //        player.setlocation(0, 0);
 //        room.mobs.add(player);
         player = new Player(400, 400, room);
