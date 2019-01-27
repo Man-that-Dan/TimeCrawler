@@ -31,9 +31,9 @@ public class Room {
         this.y = y;
         for(int i = 0; i < (room_next_double() * 10); i++) {
             if (longitude > 39.0000) {
-                terrain.add(new Terrain((Rand.room_rand % w), (Rand.room_rand % h), "snow_mound"));
+                terrain.add(new Terrain((room_next_double() % width), (room_next_double() % height), "snow_mound"));
             } else {
-                terrain.add(new Terrain((Rand.room_rand % w), (Rand.room_rand % h)));
+                terrain.add(new Terrain((room_next_double() % width), (room_next_double() % height)));
             }
         }
         simpleWalls = new Rectangle[4];
