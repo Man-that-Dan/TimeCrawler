@@ -3,9 +3,14 @@ package gameEngine;
 import java.util.ArrayList;
 
 import entity.Entity;
+import entity.Mob;
 import processing.core.PApplet;
+import world.Room;
+import world.Terrain;
+
 public class MainGameLoop extends PApplet {
-    private static ArrayList<Entity>gameObjects = new ArrayList<Entity>(5);
+    private static Room room;
+    private static Mob player;
 
     /**
      * dispatch events has the samller or same timestamp to handler
@@ -38,7 +43,7 @@ public class MainGameLoop extends PApplet {
         background(255);
         eventHandler();
         dispatchEvents();
-        for(Entity go : gameObjects) {
+        for(Entity go : room.mobs) {
 //            go.move();
             fill(160,20,20);
             float[] info = go.getRenderInformation();
@@ -54,18 +59,18 @@ public class MainGameLoop extends PApplet {
     public void getUserInput() {
         if (keyCode == LEFT) {
             //move left
-            gameObjects.get(0).;
+            player.forceMovement(-5, 0);
         }
         if (keyCode == RIGHT) {
-            gameObjects.get(0).changeXSpeed(+5);
+            mobs.get(0).changeXSpeed(+5);
             //move right
         }
         if (keyCode == UP) {
-            gameObjects.get(0).changeYSpeed(-5);
+            mobs.get(0).changeYSpeed(-5);
             //move up
         }
         if (keyCode == DOWN) {
-            gameObjects.get(0).changeYSpeed(+5);
+            mobs.get(0).changeYSpeed(+5);
             //move down
         }
         keyCode = 0;
@@ -74,7 +79,7 @@ public class MainGameLoop extends PApplet {
     public static void main(String args[]){
         Entity player =
         player.setlocation(0, 0);
-        gameObjects.add(player);
+        mobs.add(player);
         PApplet.main("csc481_project.maingameLoop");
     }
 
