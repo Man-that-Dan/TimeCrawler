@@ -4,10 +4,12 @@ import entity.Mob;
 import entity.Player;
 import world.Room;
 
+import java.security.PublicKey;
+
 public class MoveRoomEvent extends Event {
     Mob mob;
-    Room newRoom;
-    Room oldRoom;
+    public Room newRoom;
+    public Room oldRoom;
     double newX;
     double newY;
     double oldX;
@@ -20,6 +22,7 @@ public class MoveRoomEvent extends Event {
         this.generator = e;
         oldRoom = e.room;
         this.newRoom = newRoom;
+        this.priority = 0.9999; //THIS SHOULD HAPPEN LAST
     }
 
     public boolean execute() {

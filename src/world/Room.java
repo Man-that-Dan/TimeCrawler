@@ -59,19 +59,18 @@ public class Room {
         for(int i = 0; i < connections.length; i++) {
             if(connections[i] != null) {
                 switch(i) {
-                    //TODO
-//                    case 0://east
-//                        doors.add(new Door(800, 400, this, connections[i]));
-//                        break;
-//                    case 1://north
-//                        doors.add(new Door(400, 800, this, connections[i]));
-//                        break;
-//                    case 2://west
-//                        doors.add(new Door(0, 400, this, connections[i]));
-//                        break;
-//                    case 3://south
-//                        doors.add(new Door(400, 0, this, connections[i]));
-//                        break;
+                    case 0://east
+                        doors.add(new Door(800, 400, this, connections[i], i));
+                        break;
+                    case 1://north
+                        doors.add(new Door(400, 800, this, connections[i], i));
+                        break;
+                    case 2://west
+                        doors.add(new Door(0, 400, this, connections[i], i));
+                        break;
+                    case 3://south
+                        doors.add(new Door(400, 0, this, connections[i], i));
+                        break;
                 }
             }
         }

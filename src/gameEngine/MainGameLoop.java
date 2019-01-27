@@ -86,6 +86,7 @@ public class MainGameLoop extends PApplet {
                     isDone = true;
                 }
             }
+            room = player.room;
             TimeLine.addTick(executionSequence);
             tick++;
         }
@@ -97,11 +98,13 @@ public class MainGameLoop extends PApplet {
                         e.revert();
                     }
                 }
+                room = player.room;
             }
             reverse = false;
         }
-        if(room.mobs.isEmpty()) {
+        if(room.mobs.size() == 1) {
             //Room has been defeated
+            System.out.println("Room defeated");
             room.generateDoors();
         }
     }
