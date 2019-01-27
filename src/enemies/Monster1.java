@@ -4,6 +4,7 @@ import entity.Entity;
 import event.AttackEvent;
 import event.Event;
 import geometry.Rectangle;
+import org.locationtech.jts.geom.Polygon;
 
 public class Monster1 extends Enemy {
 

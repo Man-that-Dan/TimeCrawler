@@ -1,18 +1,20 @@
+
 package event;
 
-import entity.Entity;
+import entity.*;
 import org.locationtech.jts.geom.Polygon;
 
-public class AttackEvent extends Event {
+public class StatusEvent extends Event {
     Entity entity;
     Polygon areaOfEffect;
-    double damage;
+    status_effect effect;
 
-    public AttackEvent(Entity e, Polygon areaOfEffect, double damage) {
+    public StatusEvent(Polygon areaOfEffect, status_effect s) {
         super();
-        this.entity = e;
+        //TODO assign this to player character
+        this.entity = player;
         this.areaOfEffect = areaOfEffect;
-        this.damage = damage;
+        this.effect = s;
     }
 
     public boolean execute() {
