@@ -8,6 +8,8 @@ import org.locationtech.jts.algorithm.Centroid;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.geom.Envelope;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.util.AffineTransformation;
 
 public class Player extends Mob {
     //the player's currently afflicted statuses
@@ -49,20 +51,32 @@ public class Player extends Mob {
                     break;
             //north east attack
             case 4: AoE = rf.createRectangle((playerCenter.x + 30), (playerCenter.y + 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
-                attacked = new AttackEvent(this, AoE, attack);
-                break;
+                    AffineTransformation rotright = new AffineTransformation();
+                    rotright.rotate(-45.0);
+                    AoE = new GeometryFactory().createPolygon((rotright.transform(AoE)).getCoordinates());
+                    attacked = new AttackEvent(this, AoE, attack);
+                    break;
             //north west attack
             case 5: AoE = rf.createRectangle((playerCenter.x - 30), (playerCenter.y + 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
-                attacked = new AttackEvent(this, AoE, attack);
-                break;
+                    AffineTransformation rotright = new AffineTransformation();
+                    rotright.rotate(45.0);
+                    AoE = new GeometryFactory().createPolygon((rotright.transform(AoE)).getCoordinates());
+                    attacked = new AttackEvent(this, AoE, attack);
+                    break;
             //south west attack
             case 6: AoE = rf.createRectangle((playerCenter.x - 30), (playerCenter.y - 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
-                attacked = new AttackEvent(this, AoE, attack);
-                break;
+                    AffineTransformation rotright = new AffineTransformation();
+                    rotright.rotate(135.0);
+                    AoE = new GeometryFactory().createPolygon((rotright.transform(AoE)).getCoordinates());
+                    attacked = new AttackEvent(this, AoE, attack);
+                    break;
             //south east attack
             case 7: AoE = rf.createRectangle((playerCenter.x + 30), (playerCenter.y - 30), (2), (this.poly.getEnvelopeInternal().getHeight() + 30));
-                attacked = new AttackEvent(this, AoE, attack);
-                break;
+                    AffineTransformation rotright = new AffineTransformation();
+                    rotright.rotate(-135.0);
+                    AoE = new GeometryFactory().createPolygon((rotright.transform(AoE)).getCoordinates());
+                    attacked = new AttackEvent(this, AoE, attack);
+                    break;
 
         };
     };

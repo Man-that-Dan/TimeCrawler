@@ -24,6 +24,10 @@ public class Room {
     //1: North (+y)
     //2: West (-x)
     //3: South (-y)
+    //4 north east (+x +y)
+    //5 north west (-x +y)
+    //6 south west (-x -y)
+    //7 south east  (+x -y)
     Room[] connections = new Room[] {null, null, null, null};
     Polygon[] simpleWalls;
     Color[] simpleWallColors;
