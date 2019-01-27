@@ -29,4 +29,6 @@ public abstract class Mob extends Entity {
     public void heal(double healing) {
         this.health += healing;
     }
+
+    public abstract void updateAI();
 }
