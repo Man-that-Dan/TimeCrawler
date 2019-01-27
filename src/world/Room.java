@@ -8,20 +8,24 @@ import java.util.HashSet;
 import static world.Rand.room_next_double;
 
 public class Room {
+    int x;
+    int y;
     //set of terrain objects
     HashSet<Terrain> terrain;
     //enemies
     HashSet<Entity> mobs;
-    Room[] connections = new Room[] {null, null, null, null};
-    Rectangle[] simpleWalls;
+
     //0: East (+x)
     //1: North (+y)
     //2: West (-x)
     //3: South (-y)
+    Room[] connections = new Room[] {null, null, null, null};
+    Rectangle[] simpleWalls;
 
 
-    public Room(int width, int height) {
-        //use x and y as height and width to
+    public Room(int x, int y) {
+        this.x = x;
+        this.y = y;
         for(int i = 0; i < (room_next_double() * 10); i++) {
             if (longitude > 39.0000) {
                 terrain.add(new Terrain((Rand.room_rand % w), (Rand.room_rand % h), "snow_mound"));
@@ -29,6 +33,8 @@ public class Room {
                 terrain.add(new Terrain((Rand.room_rand % w), (Rand.room_rand % h)));
             }
         }
+        simpleWalls = new Rectangle[4];
+        simpleWalls[0] = new Rectangle(x, y)
     }
 
     boolean setConnection(Room newNeighbor, int pos) {
