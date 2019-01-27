@@ -137,8 +137,8 @@ public class MainGameLoop extends PApplet {
         room = new Room(0,0);
         room.init();
         Locator location = new Locator();
-//        longitude = location.getLong();
-        longitude = 0.5;
+        longitude = location.getLong();
+    //    longitude = 0.5;
 //        player.setlocation(0, 0);
 //        room.mobs.add(player);
         player = new Player(400, 400, room);

@@ -5,7 +5,7 @@ package maps;
 
 import java.io.*;
 import java.net.*;
-//import org.json.*;
+import org.json.*;
 
 public class Locator {
 
@@ -49,16 +49,22 @@ public class Locator {
         longitude = 0;
 
         //get request
-//        String location = getHTML(urlToRead);
-//        JSONObject locObj = new JSONObject(location);
-//        country = locObj.getString("country_name");
-//        state = locObj.getString("region_name");
-//        city = locObj.getString("city");
-//        zipcode = locObj.getInt("zip");
-//        latitude = locObj.getDouble("latitude");
-//        longitude = locObj.getDouble("longitude");
-
+        try {
+            String location = getHTML(urlToRead);
+            JSONObject locObj = new JSONObject(location);
+            country = locObj.getString("country_name");
+            state = locObj.getString("region_name");
+            city = locObj.getString("city");
+            zipcode = locObj.getInt("zip");
+            latitude = locObj.getDouble("latitude");
+            longitude = locObj.getDouble("longitude");
+        }
+        catch(Exception ex) {
+            longitude = 34.00;
+        };
     }
+
+
 
 
     //gets latitude as double
