@@ -2,11 +2,10 @@ package gameEngine;
 
 import java.util.ArrayList;
 
-import object.GameObject;
-import object.Squares;
+import entity.Entity;
 import processing.core.PApplet;
 public class MainGameLoop extends PApplet {
-    private static ArrayList<GameObject>gameObjects = new ArrayList<GameObject>(5);
+    private static ArrayList<Entity>gameObjects = new ArrayList<Entity>(5);
 
     /**
      * dispatch events has the samller or same timestamp to handler
@@ -34,26 +33,28 @@ public class MainGameLoop extends PApplet {
         smooth();
         noStroke();
     }
-    /**
-     * detect collision
-     */
-    public void collision(GameObject goA, GameObject goB) {
-
-    }
     //rendering
     public void draw() {
         background(255);
         eventHandler();
         dispatchEvents();
-        for(GameObject go : gameObjects) {
-            go.move();
+        for(Entity go : gameObjects) {
+//            go.move();
             fill(160,20,20);
-            int[] info = go.getRenderInformation();
-            rect(info[0],info[1],info[2],info[3]);
+            float[] info = go.getRenderInformation();
+            fill(go.poly.color.r, go.poly.color.g, go.poly.color.b);
+            beginShape();
+            for(int i = 0; i < info.length; i += 2) {
+                vertex(info[i], info[i+1]);
+            }
+            endShape();
         }
+    }
+
+    public void getUserInput() {
         if (keyCode == LEFT) {
             //move left
-            gameObjects.get(0).changeXSpeed(-5);
+            gameObjects.get(0).;
         }
         if (keyCode == RIGHT) {
             gameObjects.get(0).changeXSpeed(+5);
@@ -71,7 +72,7 @@ public class MainGameLoop extends PApplet {
     }
 
     public static void main(String args[]){
-        GameObject player = new Squares(50, 50);
+        Entity player =
         player.setlocation(0, 0);
         gameObjects.add(player);
         PApplet.main("csc481_project.maingameLoop");
