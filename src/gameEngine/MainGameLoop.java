@@ -14,6 +14,7 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 import render.Effect;
+import world.Level;
 import world.Rand;
 import world.Room;
 
@@ -24,6 +25,7 @@ import java.util.Random;
 
 public class MainGameLoop extends PApplet {
     public static final double HUD_WIDTH = 50;
+    private static Level level;
     private static Room room;
     public static Player player;
     private static long tick = 0;
@@ -234,7 +236,9 @@ public class MainGameLoop extends PApplet {
 
     public static void main(String args[]){
         Rand.init((new Random()).nextLong());
-        room = new Room(0,0);
+        level = new Level(null);
+//        room = new Room(0,0);
+        room = level.rooms[0][0]
         room.init();
 
 //        player.setlocation(0, 0);
