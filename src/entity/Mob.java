@@ -10,6 +10,7 @@ import world.Room;
 import java.util.HashSet;
 
 public abstract class Mob extends Entity {
+    public boolean spawned = false;
     public double attack;
     public double health;
     public double speed;

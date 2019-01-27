@@ -3,11 +3,13 @@ package entity;
 import event.AttackEvent;
 import event.Event;
 import event.MoveEvent;
+import event.SpawnEvent;
 import geometry.RectangleFactory;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.util.AffineTransformation;
+import world.Rand;
 import world.Room;
 
 public class Player extends Mob {
@@ -95,6 +97,14 @@ public class Player extends Mob {
             new MoveEvent(this, storedMovementX * scale, storedMovementY * scale);
             storedMovementX = 0;
             storedMovementY = 0;
+        }
+        if(!spawned) {
+            double newx = Rand.mob_next_double(0, room.width);
+            double newy = Rand.mob_next_double(0, room.height);
+            this.x = newx;
+            this.y = newy;
+            this.poly = rf.createRectangle(x - 5, y - 5, 10, 10);
+            new SpawnEvent(this);
         }
     }
 }
