@@ -18,7 +18,8 @@ public class MoveEvent extends Event {
         mob.transpose(moved_x, moved_y);
         if(!mob.getDoorCollisions().isEmpty()) {
             for(Door d : mob.getDoorCollisions()) {
-                new MoveRoomEvent(mob, d.nextRoom);
+//                new MoveRoomEvent(mob, d.nextRoom);
+                //TODO
                 break;
             }
             return true;
