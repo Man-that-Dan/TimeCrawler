@@ -32,9 +32,9 @@ public class Room {
         for(int i = 0; i < (room_next_double() * 10); i++) {
             //TODO change this longitude to however we get user's longitude in the end
             if (longitude > 39.0000) {
-                terrain.add(new Terrain((room_next_double() % width), (room_next_double() % height), "snow_mound"));
+                terrain.add(new Terrain((room_next_double() * width), (room_next_double() * height), "snow_mound"));
             } else {
-                terrain.add(new Terrain((room_next_double() % width), (room_next_double() % height)));
+                terrain.add(new Terrain((room_next_double() * width), (room_next_double() * height)));
             }
         }
         simpleWalls = new Rectangle[4];
