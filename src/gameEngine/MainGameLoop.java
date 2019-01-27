@@ -1,11 +1,16 @@
-package gameEngine;
+package csc481_project;
 
 import java.util.ArrayList;
 
 import object.GameObject;
 import object.Squares;
 import processing.core.PApplet;
-public class MainGameLoop extends PApplet {
+public class maingameLoop extends PApplet {
+    private static long tick = 0;
+    //time increment of time through one loop through
+    private static int timeIncrement = 5000;
+    private static long deltaTime;
+    private static long beginTime;
     private static ArrayList<GameObject>gameObjects = new ArrayList<GameObject>(5);
 
     /**
@@ -68,12 +73,24 @@ public class MainGameLoop extends PApplet {
             //move down
         }
         keyCode = 0;
+        deltaTime +=  System.currentTimeMillis() - beginTime;
+        beginTime = System.currentTimeMillis();
+        if(timeIncrement < deltaTime ) {
+            tick++;
+            deltaTime -= timeIncrement;
+            if(tick%5 == 0) {
+                System.out.println(tick);
+            }
+        }
+
     }
 
     public static void main(String args[]){
         GameObject player = new Squares(50, 50);
         player.setlocation(0, 0);
         gameObjects.add(player);
+        //grab current time
+        beginTime = System.currentTimeMillis();
         PApplet.main("csc481_project.maingameLoop");
     }
 
