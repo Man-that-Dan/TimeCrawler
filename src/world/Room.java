@@ -4,6 +4,7 @@ import entity.Entity;
 import geometry.Rectangle;
 import render.Color;
 
+import java.awt.*;
 import java.util.HashSet;
 
 import static world.Rand.room_next_double;
@@ -61,5 +62,10 @@ public class Room {
             //return failure
             return false;
         }
+    }
+
+    HashSet<Entity> getMobs(Polygon area) {
+        //TODO
+        return null;
     }
 }
