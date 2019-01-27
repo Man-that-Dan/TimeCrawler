@@ -12,8 +12,8 @@ public class Enemy extends mob {
     int speed = 5;
 
     public void attack(){
-        Rectangle AoE = new Rectangle(this.posx, this.posy, (this.poly.x + 5), (this.poly.y + 5)  );
-        Event attack = new AttackEvent(this, AoE, damage * difficulty);
+        Rectangle AoE = new Rectangle(this.poly.x, this.poly.y, (this.poly.x + 5), (this.poly.y + 5)  );
+        Event attacked = new AttackEvent(this, AoE, attack * difficulty);
     };
 
 }

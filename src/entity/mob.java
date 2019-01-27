@@ -1,8 +1,8 @@
 package entity;
 
 
-public class mob extends entity {
-    double attack;
-    double health;
-    int speed;
+public class mob extends Entity {
+    public double attack;
+    public double health;
+    public int speed;
 }

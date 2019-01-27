@@ -1,6 +1,8 @@
 package enemies;
 
 import entity.Entity;
+import event.AttackEvent;
+import event.Event;
 import geometry.Rectangle;
 
 public class BigMonster extends Enemy {
@@ -9,8 +11,7 @@ public class BigMonster extends Enemy {
     int damage = 15;
     int speed = 1;
     public BigMonster(int x, int y, double diff){
-        this.posx = x;
-        this.posy = y;
+
         this.poly.x = x;
         this.poly.y = y;
         this.poly.width = 10;
@@ -18,5 +19,9 @@ public class BigMonster extends Enemy {
         difficulty = diff;
     }
 
-
+    //Big AoE attack
+    public void attack(){
+        Rectangle AoE = new Rectangle(this.poly.x, this.poly.y, (this.poly.x + 30), (this.poly.y + 30)  );
+        Event attacked = new AttackEvent(this, AoE, attack * difficulty);
+    };
 }
