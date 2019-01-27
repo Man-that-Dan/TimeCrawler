@@ -115,7 +115,7 @@ public class MainGameLoop extends PApplet {
     public void settings() {
         size((int) (Room.width + 2 * HUD_WIDTH),(int) (Room.height + 2 * HUD_WIDTH));
     }
-    PImage img;
+//    PImage img;
 
     public void setup() {
         Locator location = new Locator();
@@ -123,7 +123,7 @@ public class MainGameLoop extends PApplet {
         smooth();
         noStroke();
         font = createFont("Arial",16,true); // STEP 2 Create Font
-        img = loadImage("Assets/pixil-frame-0.png");
+//        img = loadImage("Assets/pixil-frame-0.png");
     }
     //rendering
     public void draw() {
@@ -139,14 +139,14 @@ public class MainGameLoop extends PApplet {
             eventHandler();
             for (Entity go : room.mobs) {
                 Coordinate[] info = go.getRenderInformation();
-//                fill(go.color.r, go.color.g, go.color.b);
-//                beginShape();
-//                for (int i = 0; i < info.length; i++) {
-//                    vertex((float) (info[i].x + HUD_WIDTH), (float) (info[i].y + HUD_WIDTH));
-//                }
-//                endShape();
-                img.resize(50, 50);
-                image(img, (float) go.x + img.width / 2, (float) go.y + img.height / 2);
+                fill(go.color.r, go.color.g, go.color.b);
+                beginShape();
+                for (int i = 0; i < info.length; i++) {
+                    vertex((float) (info[i].x + HUD_WIDTH), (float) (info[i].y + HUD_WIDTH));
+                }
+                endShape();
+//                img.resize(50, 50);
+//                image(img, (float) go.x + img.width / 2, (float) go.y + img.height / 2);
             }
             for (Entity go : room.terrain) {
                 Coordinate[] info = go.getRenderInformation();
