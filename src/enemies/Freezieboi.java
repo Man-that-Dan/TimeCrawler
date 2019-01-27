@@ -6,6 +6,7 @@ import event.*;
 import event.Event;
 import geometry.RectangleFactory;
 import org.locationtech.jts.geom.Polygon;
+import world.Room;
 
 
 public class Freezieboi extends Enemy {
@@ -13,8 +14,8 @@ public class Freezieboi extends Enemy {
     int speed = 5;
     StatusEffect frostbolt = new StatusEffect("Freeze", 3);
 
-    public Freezieboi(int x, int y, double diff){
-        super(x, y, diff);
+    public Freezieboi(int x, int y, Room room, double diff){
+        super(x, y, room, diff);
     }
 
     //long range horizontal freezing attack

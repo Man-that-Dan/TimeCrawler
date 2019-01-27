@@ -5,14 +5,15 @@ import event.*;
 import entity.*;
 import geometry.RectangleFactory;
 import org.locationtech.jts.geom.Polygon;
+import world.Room;
 
 //enemy base class - abstract class
 abstract public class Enemy extends Mob {
     double difficulty;
     RectangleFactory rf = new RectangleFactory();
 
-    public Enemy(double x, double y, double difficulty) {
-        super(x, y);
+    public Enemy(double x, double y, Room room, double difficulty) {
+        super(x, y, room);
         this.difficulty = difficulty;
     }
 

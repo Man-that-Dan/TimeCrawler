@@ -42,7 +42,7 @@ public class Level {
                             if(currentx == width - 1) {
                                 remainingDirections.remove(r);
                             } else {
-                                rooms[currentx + 1][currenty] = new Room(currentx + 1, currenty);
+                                rooms[currentx + 1][currenty] = (new Room(currentx + 1, currenty)).init();
                                 rooms[currentx][currenty].setConnection(rooms[currentx + 1][currenty], 0);
                                 roomStack.push(new IntCoordinate(currentx, currenty));
                                 currentx = currentx + 1;
@@ -53,7 +53,7 @@ public class Level {
                             if(currenty == height - 1) {
                                 remainingDirections.remove(r);
                             } else {
-                                rooms[currentx][currenty + 1] = new Room(currentx, currenty + 1);
+                                rooms[currentx][currenty + 1] = (new Room(currentx + 1, currenty)).init();
                                 rooms[currentx][currenty].setConnection(rooms[currentx][currenty + 1], 1);
                                 roomStack.push(new IntCoordinate(currentx, currenty));
                                 currenty = currenty + 1;
@@ -64,7 +64,7 @@ public class Level {
                             if(currentx == 0) {
                                 remainingDirections.remove(r);
                             } else {
-                                rooms[currentx - 1][currenty] = new Room(currentx - 1, currenty);
+                                rooms[currentx - 1][currenty] = (new Room(currentx + 1, currenty)).init();
                                 rooms[currentx][currenty].setConnection(rooms[currentx - 1][currenty], 2);
                                 roomStack.push(new IntCoordinate(currentx, currenty));
                                 currentx = currentx - 1;
@@ -75,7 +75,7 @@ public class Level {
                             if(currenty == 0) {
                                 remainingDirections.remove(r);
                             } else {
-                                rooms[currentx][currenty - 1] = new Room(currentx, currenty - 1);
+                                rooms[currentx][currenty - 1] = (new Room(currentx + 1, currenty)).init();
                                 rooms[currentx][currenty].setConnection(rooms[currentx][currenty - 1], 3);
                                 roomStack.push(new IntCoordinate(currentx, currenty));
                                 currenty = currenty - 1;

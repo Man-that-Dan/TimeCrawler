@@ -5,6 +5,7 @@ import event.KillEvent;
 import event.MoveEvent;
 import org.locationtech.jts.algorithm.Centroid;
 import org.locationtech.jts.geom.Coordinate;
+import world.Room;
 
 import java.util.HashSet;
 
@@ -16,8 +17,8 @@ public abstract class Mob extends Entity {
     public double difficulty;
     public HashSet<StatusEffect> statusEffects = new HashSet<>();
 
-    public Mob(double x, double y) {
-        super(x, y);
+    public Mob(double x, double y, Room room) {
+        super(x, y, room);
     }
 
 

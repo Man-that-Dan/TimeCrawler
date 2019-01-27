@@ -8,14 +8,15 @@ import event.Event;
 import event.SpawnEvent;
 import org.locationtech.jts.geom.Coordinate;
 import processing.core.PApplet;
+import world.Rand;
 import world.Room;
 
 public class MainGameLoop extends PApplet {
-    private static Room room = new Room(0,0);
-    private static Mob player;
+    private static Room room;
+    private static Player player;
     private static long tick = 0;
     //time increment of time through one loop through
-    private static int timeIncrement = 5000;
+    private static int timeIncrement = 50;
     private static long deltaTime;
     private static long beginTime;
     public static double longitude;
@@ -48,10 +49,8 @@ public class MainGameLoop extends PApplet {
             if(tick%5 == 0) {
                 System.out.println("Tick number: " + tick);
             }
+            dispatchEvents();
             //Do all the queued events
-//            for(Event e : Event.event_queue) {
-//                e.execute();
-//            }
             boolean isDone = false;
             while(!Event.event_queue.isEmpty() && !isDone) {
                 Event next = Event.event_queue.peek();
@@ -97,29 +96,34 @@ public class MainGameLoop extends PApplet {
     public void getUserInput() {
         if (keyCode == LEFT) {
             //move left
-            player.forceMovement(-5, 0);
+            player.storeMovement(-5, 0);
         }
         if (keyCode == RIGHT) {
             //move right
-            player.forceMovement(+5, 0);
+            player.storeMovement(+5, 0);
         }
         if (keyCode == UP) {
             //move up
-            player.forceMovement(0, +5);
+            player.storeMovement(0, +5);
         }
         if (keyCode == DOWN) {
             //move down
-            player.forceMovement(0, -5);
+            player.storeMovement(0, -5);
         }
         keyCode = 0;
     }
 
     public static void main(String args[]){
+        Rand.init(5);
+        room = new Room(0,0);
+        room.init();
         Locator location = new Locator();
-        longitude = location.getLong();
+//        longitude = location.getLong();
+        longitude = 0.5;
 //        player.setlocation(0, 0);
 //        room.mobs.add(player);
-        new SpawnEvent(new Player(50, 50));
+        player = new Player(50, 50, room);
+        new SpawnEvent(player);
         //grab current time
         beginTime = System.currentTimeMillis();
         PApplet.main("gameEngine.MainGameLoop");

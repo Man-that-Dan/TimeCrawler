@@ -14,12 +14,13 @@ public abstract class Entity {
     public double x;
     public double y;
     public Polygon poly;
-    public Color color;
+    public Color color = new Color(0, 0, 0);
     public Room room;
 
-    public Entity(double x, double y) {
+    public Entity(double x, double y, Room room) {
         this.x = x;
         this.y = y;
+        this.room = room;
     }
 
     public void transpose(double dx, double dy) {
@@ -57,7 +58,10 @@ public abstract class Entity {
 
     @Override
     public int hashCode() {
-        return poly.hashCode() ^ room.hashCode();
+        int ph = poly.hashCode();
+//        int rh = room.hashCode();
+//        return ph ^ rh;
+        return ph;
     }
 
     @Override

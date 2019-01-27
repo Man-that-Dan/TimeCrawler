@@ -8,6 +8,7 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.util.AffineTransformation;
+import world.Room;
 
 public class Player extends Mob {
     //the player's currently afflicted statuses
@@ -17,8 +18,8 @@ public class Player extends Mob {
     RectangleFactory rf = new RectangleFactory();
 
 
-    public Player(double x, double y){
-        super(x, y);
+    public Player(double x, double y, Room room){
+        super(x, y, room);
         this.poly = rf.createRectangle(x - 5, y - 5, 10, 10);
         this.health = 100;
         this.attack = 20;
@@ -90,7 +91,7 @@ public class Player extends Mob {
         if(storedMovementX == 0 && storedMovementY == 0)  {
 
         } else {
-            double scale = 1 / (storedMovementX * storedMovementX + storedMovementY * storedMovementY);
+            double scale = speed / (storedMovementX * storedMovementX + storedMovementY * storedMovementY);
             new MoveEvent(this, storedMovementX * scale, storedMovementY * scale);
             storedMovementX = 0;
             storedMovementY = 0;

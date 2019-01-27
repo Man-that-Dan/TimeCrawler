@@ -5,12 +5,13 @@ import event.AttackEvent;
 import event.Event;
 import geometry.RectangleFactory;
 import org.locationtech.jts.geom.Polygon;
+import world.Room;
 
 public class BigMonster extends Enemy {
 
     RectangleFactory rf = new RectangleFactory();
-    public BigMonster(double x, double y, double diff){
-        super(x, y, diff);
+    public BigMonster(double x, double y, Room room, double diff){
+        super(x, y, room, diff);
         this.poly = rf.createRectangle(x - 5, y - 5, 10, 10);
         attack = 15;
         speed = 1;
