@@ -238,9 +238,6 @@ public class MainGameLoop extends PApplet {
         level = new Level(null);
 //        room = new Room(0,0);
         room = level.rooms[0][0];
-//        room.init();
-//        player.setlocation(0, 0);
-//        room.mobs.add(player);
         player = new Player(400, 400, room);
         new SpawnEvent(player);
         //grab current time

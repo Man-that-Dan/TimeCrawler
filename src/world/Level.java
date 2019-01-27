@@ -14,18 +14,23 @@ public class Level {
     public double difficulty;
 
     public Level(Level previous) {
+        System.out.println("Creating level");
         if(previous != null) {
             difficulty = scaleDifficulty(previous.difficulty);
+            width = (int)(previous.width * difficulty);
+            height = (int)(previous.height * difficulty);
         } else {
             difficulty = 1.0;
+            width = 10;
+            height = 10;
         }
-        width = (int)(previous.width * difficulty);
-        height = (int)(previous.height * difficulty);
         rooms = new Room[width][height];
         generateRooms();
     }
 
+
     private void generateRooms() {
+        System.out.println("Generating roomss");
         int startx = (int) (Rand.world_rand.nextDouble() * width);
         int starty = (int) (Rand.world_rand.nextDouble() * height);
         ArrayList<Integer> remainingDirections = new ArrayList<>();
@@ -34,6 +39,7 @@ public class Level {
         int currenty = starty;
         Stack<IntCoordinate> roomStack = new Stack<>();
         do {
+            remainingDirections.clear();
             for(int i = 0; i < 4; i++) {
                 remainingDirections.add(i);
             }
@@ -41,11 +47,10 @@ public class Level {
             while(remainingDirections.size() != 0 && unfound) {
                 int r = Rand.world_next_int(0, remainingDirections.size());
                 if(rooms[currentx][currenty].connections[remainingDirections.get(r)] == null) {
-                    //TODO
                     switch(remainingDirections.get(r)) {
                         case 0: //EAST
                             if(currentx == width - 1) {
-                                remainingDirections.remove(r);
+                                remainingDirections.remove(remainingDirections.get(r));
                             } else {
                                 rooms[currentx + 1][currenty] = (new Room(currentx + 1, currenty)).init();
                                 rooms[currentx][currenty].setConnection(rooms[currentx + 1][currenty], 0);
@@ -56,7 +61,7 @@ public class Level {
                             break;
                         case 1: //NORTH
                             if(currenty == height - 1) {
-                                remainingDirections.remove(r);
+                                remainingDirections.remove(remainingDirections.get(r));
                             } else {
                                 rooms[currentx][currenty + 1] = (new Room(currentx + 1, currenty)).init();
                                 rooms[currentx][currenty].setConnection(rooms[currentx][currenty + 1], 1);
@@ -67,7 +72,7 @@ public class Level {
                             break;
                         case 2: //WEST
                             if(currentx == 0) {
-                                remainingDirections.remove(r);
+                                remainingDirections.remove(remainingDirections.get(r));
                             } else {
                                 rooms[currentx - 1][currenty] = (new Room(currentx + 1, currenty)).init();
                                 rooms[currentx][currenty].setConnection(rooms[currentx - 1][currenty], 2);
@@ -78,7 +83,7 @@ public class Level {
                             break;
                         case 3: //SOUTH
                             if(currenty == 0) {
-                                remainingDirections.remove(r);
+                                remainingDirections.remove(remainingDirections.get(r));
                             } else {
                                 rooms[currentx][currenty - 1] = (new Room(currentx + 1, currenty)).init();
                                 rooms[currentx][currenty].setConnection(rooms[currentx][currenty - 1], 3);
@@ -89,10 +94,11 @@ public class Level {
                             break;
                     }
                 } else {
-                    remainingDirections.remove(r);
+                    remainingDirections.remove(remainingDirections.get(r));
                 }
             }
             if(unfound) {
+                System.out.println("Unfound, backtracing");
                 IntCoordinate c = roomStack.pop();
                 currentx = c.x;
                 currenty = c.y;

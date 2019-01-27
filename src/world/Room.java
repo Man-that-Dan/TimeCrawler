@@ -31,8 +31,8 @@ public class Room {
     //6 south west (-x -y)
     //7 south east  (+x -y)
     Room[] connections = new Room[] {null, null, null, null};
-    Polygon[] simpleWalls;
-    Color[] simpleWallColors;
+//    Polygon[] simpleWalls;
+//    Color[] simpleWallColors;
 
 
     public Room(int x, int y) {
@@ -103,7 +103,7 @@ public class Room {
             //Make the rooms neighbors
             connections[pos] = newNeighbor;
             newNeighbor.connections[(pos + 2) % 4] = this;
-            simpleWallColors[pos] = new Color(0, 0, 0);
+//            simpleWallColors[pos] = new Color(0, 0, 0);
             //return success
             return true;
         } else {
