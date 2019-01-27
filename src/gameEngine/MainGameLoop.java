@@ -115,10 +115,10 @@ public class MainGameLoop extends PApplet {
     public void draw() {
         if(player.health > 0) {
             PImage bg;
-            if(longitude < 39.00) {
-                bg = loadImage("../../Assets/Snowfloor.jpg");
+            if(longitude > 39.00) {
+                bg = loadImage("Assets/Snowfloor.jpeg");
             } else {
-                bg = loadImage("../../Assets/Regularfloor.jpg");
+                bg = loadImage("Assets/Regularfloor.jpg");
             }
             background(bg);
             getUserInput();
