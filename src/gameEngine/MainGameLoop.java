@@ -64,16 +64,16 @@ public class MainGameLoop extends PApplet {
             player.forceMovement(-5, 0);
         }
         if (keyCode == RIGHT) {
-            mobs.get(0).changeXSpeed(+5);
             //move right
+            player.forceMovement(+5, 0);
         }
         if (keyCode == UP) {
-            mobs.get(0).changeYSpeed(-5);
             //move up
+            player.forceMovement(0, +5);
         }
         if (keyCode == DOWN) {
-            mobs.get(0).changeYSpeed(+5);
             //move down
+            player.forceMovement(0, -5);
         }
         keyCode = 0;
         deltaTime +=  System.currentTimeMillis() - beginTime;
