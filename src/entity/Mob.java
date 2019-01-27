@@ -50,6 +50,19 @@ public abstract class Mob extends Entity {
     }
 
     public void applyStatus(StatusEffect e) {
+        boolean alreadyHere = false;
+        for(StatusEffect se : statusEffects) {
+            if(e.equals(se)) {
+                alreadyHere = true;
+                se.expiration_timer += e.expiration_timer;
+                break;
+            }
+        }
+        if(!alreadyHere) {
+            e.applyToMob(this);
+        }
+    }
 
+    public void tickStatuses() {
     }
 }

@@ -11,7 +11,7 @@ import world.Room;
 
 public class Freezieboi extends Enemy {
     int damage = 5;
-    int speed = 5;
+    int speed = 2;
     StatusEffect frostbolt = new StatusEffect("Freeze", 3);
 
     public Freezieboi(int x, int y, Room room, double diff){

@@ -12,7 +12,6 @@ public class StatusEvent extends Event {
 
     public StatusEvent(Mob source, Polygon areaOfEffect, StatusEffect s) {
         super();
-        //TODO assign this to player character
         this.source = source;
         this.areaOfEffect = areaOfEffect;
         this.effect = s;

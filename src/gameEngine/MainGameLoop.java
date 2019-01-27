@@ -83,10 +83,12 @@ public class MainGameLoop extends PApplet {
             tick++;
         }
         if(reverse) {
-            if(!TimeLine.previousEvents.isEmpty()) {
-                LinkedList<Event> pe = TimeLine.previousEvents.poll();
-                for(Event e : pe) {
-                    e.revert();
+            for(int i = 0; i < 2; i++) {
+                if (!TimeLine.previousEvents.isEmpty()) {
+                    LinkedList<Event> pe = TimeLine.previousEvents.poll();
+                    for (Event e : pe) {
+                        e.revert();
+                    }
                 }
             }
             reverse = false;
