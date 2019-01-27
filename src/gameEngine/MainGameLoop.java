@@ -1,14 +1,11 @@
 package gameEngine;
 
 import enemies.BigMonster;
-import event.KillEvent;
-import event.MoveEvent;
+import event.*;
 import maps.Locator;
 import entity.Entity;
 import entity.Mob;
 import entity.Player;
-import event.Event;
-import event.SpawnEvent;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Polygon;
 import processing.core.PApplet;
@@ -17,7 +14,9 @@ import render.Effect;
 import world.Rand;
 import world.Room;
 
+import java.sql.Time;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class MainGameLoop extends PApplet {
@@ -30,6 +29,7 @@ public class MainGameLoop extends PApplet {
     private static long deltaTime;
     private static long beginTime;
     public static double longitude;
+    public static boolean reverse = false;
 //    public static HashSet<Effect> effects = new HashSet<>();
 
     /**
@@ -58,7 +58,8 @@ public class MainGameLoop extends PApplet {
     /**
      * handling event
      *
-     */ public void eventHandler() {
+     */
+    public void eventHandler() {
         deltaTime +=  System.currentTimeMillis() - beginTime;
         beginTime = System.currentTimeMillis();
         if(timeIncrement < deltaTime ) {
@@ -67,16 +68,28 @@ public class MainGameLoop extends PApplet {
             dispatchEvents();
             //Do all the queued events
             boolean isDone = false;
+            LinkedList<Event> executionSequence = new LinkedList<>();
             while(!Event.event_queue.isEmpty() && !isDone) {
                 Event next = Event.event_queue.peek();
                 if(next.priority < 1.0) {
                     Event.event_queue.poll().execute();
+                    executionSequence.addFirst(next);
                     next.generator.respond(next);
                 } else {
                     isDone = true;
                 }
             }
+            TimeLine.addTick(executionSequence);
             tick++;
+        }
+        if(reverse) {
+            if(!TimeLine.previousEvents.isEmpty()) {
+                LinkedList<Event> pe = TimeLine.previousEvents.poll();
+                for(Event e : pe) {
+                    e.revert();
+                }
+            }
+            reverse = false;
         }
     }
     PFont font;
@@ -169,6 +182,9 @@ public class MainGameLoop extends PApplet {
         if (key == ' '){
             player.doAttack();
 //            System.out.println("good");
+        }
+        if(key == 'z') {
+            reverse = true;
         }
         keyCode = 0;
         key = '\0';
