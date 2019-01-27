@@ -54,7 +54,12 @@ public class Room {
             } else {
                 terrain.add(new Terrain((room_next_double() * width), (room_next_double() * height), this));
             }
+
         }
+        terrain.add(new Terrain(0, height/2, this, "wallv"));
+        terrain.add(new Terrain(800, height/2, this, "wallv"));
+        terrain.add(new Terrain(width/2, 0, this, "wallh"));
+        terrain.add(new Terrain(width/2, 0, this, "wallh"));
         return this;
     }
 

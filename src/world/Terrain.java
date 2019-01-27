@@ -16,7 +16,13 @@ public class Terrain extends Entity {
     public Terrain(double x, double y, Room room, String settype){
         super(x, y, room);
         RectangleFactory rf = new RectangleFactory();
-        this.poly = rf.createRectangle(x, y, Rand.room_next_double() * DEFAULT_TERRAIN_SIZE, Rand.room_next_double() * DEFAULT_TERRAIN_SIZE);
+        if(!settype.equals("wallv") && !settype.equals("wallh")) {
+            this.poly = rf.createRectangle(x, y, Rand.room_next_double() * DEFAULT_TERRAIN_SIZE, Rand.room_next_double() * DEFAULT_TERRAIN_SIZE);
+        } else if(settype == "wallv"){
+            this.poly = rf.createRectangle(x, y, 20, 800);
+        } else if(settype == "wallh"){
+            this.poly = rf.createRectangle(x, y, 800, 20);
+        }
         //type can be used when rendering to decide what color this terrain is, e.g.  rocks are brown
         //type can be used when rendering to decide what color this terrain is, e.g.  rocks are brown
         type = settype;
