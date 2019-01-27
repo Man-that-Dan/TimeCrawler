@@ -4,10 +4,8 @@ import event.AttackEvent;
 import event.Event;
 import event.MoveEvent;
 import geometry.RectangleFactory;
-import org.locationtech.jts.algorithm.Centroid;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Polygon;
-import org.locationtech.jts.geom.Envelope;
 
 public class Player extends Mob {
     //the player's currently afflicted statuses
@@ -17,8 +15,9 @@ public class Player extends Mob {
     RectangleFactory rf = new RectangleFactory();
 
 
-    public Player(int x, int y){
-        this.poly = rf.createRectangle(x, y, 10, 10);
+    public Player(double x, double y){
+        super(x, y);
+        this.poly = rf.createRectangle(x - 5, y - 5, 10, 10);
         this.health = 100;
         this.attack = 20;
         this.speed = 5;
@@ -29,7 +28,8 @@ public class Player extends Mob {
     public void attack(){
         Event attacked;
         Polygon AoE;
-        Coordinate playerCenter = Centroid.getCentroid(this.poly);
+//        Coordinate playerCenter = Centroid.getCentroid(this.poly);
+        Coordinate playerCenter = new Coordinate(x, y);
         switch(direction) {
             //east attack
             case 0: AoE = rf.createRectangle((playerCenter.x + 30), playerCenter.y, (this.poly.getEnvelopeInternal().getWidth() + 30), (2));

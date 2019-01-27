@@ -11,9 +11,14 @@ import java.util.HashSet;
 public abstract class Mob extends Entity {
     public double attack;
     public double health;
-    public int speed;
+    public double speed;
     public int direction;
+    public double difficulty;
     public HashSet<StatusEffect> statusEffects = new HashSet<>();
+
+    public Mob(double x, double y) {
+        super(x, y);
+    }
 
 
     public void forceMovement(double dx, double dy) {

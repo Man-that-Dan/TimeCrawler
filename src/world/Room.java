@@ -32,6 +32,7 @@ public class Room {
     public Room(int x, int y) {
         this.x = x;
         this.y = y;
+        double longitude = 0; //TODO remove
         for(int i = 0; i < (room_next_double() * 10); i++) {
             //TODO change this longitude to however we get user's longitude in the end
             if (longitude > 39.0000) {

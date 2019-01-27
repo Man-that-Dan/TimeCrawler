@@ -11,9 +11,11 @@ public class SpawnEvent extends Event {
 
     public boolean execute() {
         spawning.room.mobs.add(spawning);
+        return true;
     }
 
     public boolean revert() {
         spawning.room.mobs.remove(spawning);
+        return true;
     }
 }

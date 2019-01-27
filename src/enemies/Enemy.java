@@ -3,17 +3,21 @@ package enemies;
 import event.*;
 
 import entity.*;
-import geometry.Rectangle;
+import geometry.RectangleFactory;
 import org.locationtech.jts.geom.Polygon;
 
 //enemy base class - abstract class
 abstract public class Enemy extends Mob {
     double difficulty;
-    int damage = 5;
-    int speed = 5;
+    RectangleFactory rf = new RectangleFactory();
+
+    public Enemy(double x, double y, double difficulty) {
+        super(x, y);
+        this.difficulty = difficulty;
+    }
 
     public void attack(){
-        Rectangle AoE = new Rectangle(this.poly.x, this.poly.y, (this.poly.x + 5), (this.poly.y + 5)  );
+        Polygon AoE = rf.createRectangle(this.x - 2.5, this.y - 2.5, 5, 5);
         Event attacked = new AttackEvent(this, AoE, attack * difficulty);
     };
 

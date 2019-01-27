@@ -1,28 +1,28 @@
 package enemies;
 
-import entity.Entity;
+import entity.Mob;
 import event.AttackEvent;
 import event.Event;
-import geometry.Rectangle;
+import geometry.RectangleFactory;
 import org.locationtech.jts.geom.Polygon;
 
 public class BigMonster extends Enemy {
 
-
-    int damage = 15;
-    int speed = 1;
-    public BigMonster(int x, int y, double diff){
-
-        this.poly.x = x;
-        this.poly.y = y;
-        this.poly.width = 10;
-        this.poly.height = 10;
-        difficulty = diff;
+    RectangleFactory rf = new RectangleFactory();
+    public BigMonster(double x, double y, double diff){
+        super(x, y, diff);
+        this.poly = rf.createRectangle(x - 5, y - 5, 10, 10);
+        attack = 15;
+        speed = 1;
     }
 
     //Big AoE attack
     public void attack(){
-        Rectangle AoE = new Rectangle(this.poly.x, this.poly.y, (this.poly.x + 30), (this.poly.y + 30)  );
+        Polygon AoE = rf.createRectangle(this.x - 15, this.y - 15, 30, 30);
         Event attacked = new AttackEvent(this, AoE, attack * difficulty);
     };
+
+    public void updateAI() {
+        //TODO
+    }
 }

@@ -11,9 +11,16 @@ import java.util.HashSet;
 
 public abstract class Entity {
 //    public Rectangle poly;
+    public double x;
+    public double y;
     public Polygon poly;
     public Color color;
     public Room room;
+
+    public Entity(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
 
     public void transpose(double dx, double dy) {
         CoordinateFilter transposer = new CoordinateFilter() {
@@ -25,6 +32,8 @@ public abstract class Entity {
         };
         poly.apply(transposer);
         poly.geometryChanged();
+        x += dx;
+        y += dy;
         //TODO: CHECK THIS
     }
 
