@@ -1,6 +1,7 @@
 package world;
 
 import entity.Entity;
+import geometry.Rectangle;
 
 import java.util.HashSet;
 
@@ -8,6 +9,7 @@ public class Room {
     HashSet<Terrain> terrain;
     HashSet<Entity> mobs;
     Room[] connections = new Room[] {null, null, null, null};
+    Rectangle[] simpleWalls;
     //0: East (+x)
     //1: North (+y)
     //2: West (-x)
