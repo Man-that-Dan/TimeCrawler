@@ -5,6 +5,8 @@ import geometry.Rectangle;
 
 import java.util.HashSet;
 
+import static world.Rand.room_next_double;
+
 public class Room {
     //set of terrain objects
     HashSet<Terrain> terrain;
@@ -19,14 +21,14 @@ public class Room {
 
 
     public Room(int width, int height) {
-//TODO
-    //use x and y as height and width to
-    for(int i = 0; i < (Rand.room_rand() % 10); i++){
-        if(longitude > 39.0000){
-            terrain.add(new Terrain((Rand.room_rand % w),(Rand.room_rand % h), "snow_mound"));
-        } else {
-            terrain.add(new Terrain((Rand.room_rand % w),(Rand.room_rand % h)));
-        };
+        //use x and y as height and width to
+        for(int i = 0; i < (room_next_double() * 10); i++) {
+            if (longitude > 39.0000) {
+                terrain.add(new Terrain((Rand.room_rand % w), (Rand.room_rand % h), "snow_mound"));
+            } else {
+                terrain.add(new Terrain((Rand.room_rand % w), (Rand.room_rand % h)));
+            }
+        }
     }
 
     boolean setConnection(Room newNeighbor, int pos) {
