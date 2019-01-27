@@ -80,10 +80,12 @@ public class MainGameLoop extends PApplet {
         size(800,800);
 
     }
-
+    PImage img;
     public void setup() {
         smooth();
         noStroke();
+        img = loadImage("Assets/playerCharacter.jpg"); 
+        
     }
     //rendering
     public void draw() {
@@ -91,11 +93,17 @@ public class MainGameLoop extends PApplet {
         getUserInput();
         eventHandler();
         for(Entity go : room.mobs) {
+        	
+        	
+        	
             Coordinate[] info = go.getRenderInformation();
-            fill(go.color.r, go.color.g, go.color.b);
+            //fill(go.color.r, go.color.g, go.color.b);
             beginShape();
             for(int i = 0; i < info.length; i++) {
-                vertex((float) info[i].x, (float) info[i].y);
+            	//image(img, info[i].x, (float) info[i].y);
+            	image.resize(10, 10);
+            	image(img, (float)info[i].x, (float)info[i].y);
+                //vertex((float) info[i].x, (float) info[i].y);
             }
             endShape();
         }
