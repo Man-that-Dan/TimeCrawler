@@ -2,7 +2,6 @@ package world;
 
 import entity.Entity;
 import entity.Mob;
-import geometry.Rectangle;
 import geometry.RectangleFactory;
 import org.locationtech.jts.geom.Polygon;
 import render.Color;

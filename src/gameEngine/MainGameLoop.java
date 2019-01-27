@@ -2,6 +2,7 @@ package gameEngine;
 
 import entity.Entity;
 import entity.Mob;
+import event.Event;
 import org.locationtech.jts.geom.Coordinate;
 import processing.core.PApplet;
 import world.Room;
@@ -19,15 +20,45 @@ public class MainGameLoop extends PApplet {
      * dispatch events has the samller or same timestamp to handler
      */
     public void dispatchEvents() {
+        for(Mob m : room.mobs) {
+            m.updateAI();
+        }
+        if(tick % 2 == 0) {
 
+        } else if (tick % 3 == 0) {
+
+        } else if (tick % 4 == 0) {
+
+        }
     }
 
     /**
      * handling event
      *
-     */
-    public void eventHandler() {
-
+     */ public void eventHandler() {
+        deltaTime +=  System.currentTimeMillis() - beginTime;
+        beginTime = System.currentTimeMillis();
+        if(timeIncrement < deltaTime ) {
+            //We should go on to the next tick
+            deltaTime -= timeIncrement;
+            if(tick%5 == 0) {
+                System.out.println("Tick number: " + tick);
+            }
+            //Do all the queued events
+//            for(Event e : Event.event_queue) {
+//                e.execute();
+//            }
+            boolean isDone = false;
+            while(!Event.event_queue.isEmpty() && !isDone) {
+                Event next = Event.event_queue.peek();
+                if(next.priority < 1.0) {
+                    Event.event_queue.poll().execute();
+                } else {
+                    isDone = true;
+                }
+            }
+            tick++;
+        }
     }
     /**
      *
@@ -48,8 +79,6 @@ public class MainGameLoop extends PApplet {
         eventHandler();
         dispatchEvents();
         for(Entity go : room.mobs) {
-//            go.move();
-            fill(160,20,20);
             Coordinate[] info = go.getRenderInformation();
             fill(go.color.r, go.color.g, go.color.b);
             beginShape();
@@ -58,17 +87,7 @@ public class MainGameLoop extends PApplet {
             }
             endShape();
         }
-        keyCode = 0;
-        deltaTime +=  System.currentTimeMillis() - beginTime;
-        beginTime = System.currentTimeMillis();
-        if(timeIncrement < deltaTime ) {
-            tick++;
-            deltaTime -= timeIncrement;
-            if(tick%5 == 0) {
-                System.out.println(tick);
-            }
-        }
-
+        eventHandler();
     }
 
     public void getUserInput() {
@@ -88,6 +107,7 @@ public class MainGameLoop extends PApplet {
             //move down
             player.forceMovement(0, -5);
         }
+        keyCode = 0;
     }
 
     public static void main(String args[]){

@@ -4,7 +4,7 @@ import java.util.PriorityQueue;
 
 public abstract class Event implements Comparable<Event> {
     public static PriorityQueue<Event> event_queue = new PriorityQueue<>();
-    public int priority;
+    public double priority;
     public abstract boolean execute();
     public abstract boolean revert();
 
@@ -14,6 +14,10 @@ public abstract class Event implements Comparable<Event> {
 
     @Override
     public int compareTo(Event e) {
-        return this.priority - e.priority;
+        if(this.priority > e.priority) {
+            return 1;
+        } else if(this.priority < e.priority) {
+            return -1;
+        } else return 0;
     }
 }
