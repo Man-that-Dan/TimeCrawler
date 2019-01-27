@@ -11,6 +11,8 @@ import world.Terrain;
 import java.util.HashSet;
 
 public abstract class Entity {
+    private static int num_entities = 0;
+    private long entity_id = num_entities++;
 //    public Rectangle poly;
     public double x;
     public double y;
@@ -64,17 +66,14 @@ public abstract class Entity {
 
     @Override
     public int hashCode() {
-        int ph = poly.hashCode();
-//        int rh = room.hashCode();
-//        return ph ^ rh;
-        return ph;
+        return (int) entity_id;
     }
 
     @Override
     public boolean equals(Object o) {
         if(o instanceof Entity) {
             Entity other = (Entity) o;
-            return this.poly.equals(other.poly) && this.color.equals(other.color) && this.room.equals(other.room);
+            return this == other;
         }
         return false;
     }

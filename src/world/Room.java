@@ -56,10 +56,10 @@ public class Room {
             }
 
         }
-        terrain.add(new Terrain(0, height/2, this, "wallv"));
-        terrain.add(new Terrain(800, height/2, this, "wallv"));
-        terrain.add(new Terrain(width/2, 0, this, "wallh"));
-        terrain.add(new Terrain(width/2, 0, this, "wallh"));
+        terrain.add(new Terrain(0 - 10, 0, this, "wallv"));
+        terrain.add(new Terrain(800 - 10, 0, this, "wallv"));
+        terrain.add(new Terrain(0, 0 - 10, this, "wallh"));
+        terrain.add(new Terrain(0, 800 - 10, this, "wallh"));
         return this;
     }
 
@@ -80,7 +80,10 @@ public class Room {
     }
 
     public HashSet<Mob> getMobs(Polygon area) {
-        //TODO
-        return null;
+        HashSet<Mob> ret = new HashSet<>();
+        for(Mob m : mobs) {
+            if(m.poly.intersects(area)) ret.add(m);
+        }
+        return ret;
     }
 }

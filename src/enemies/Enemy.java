@@ -15,6 +15,7 @@ abstract public class Enemy extends Mob {
     public Enemy(double x, double y, Room room, double difficulty) {
         super(x, y, room);
         this.difficulty = difficulty;
+        this.health = 10;
     }
 
     public void attack(){

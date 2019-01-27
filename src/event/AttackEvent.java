@@ -23,10 +23,10 @@ public class AttackEvent extends Event {
     }
 
     public boolean execute() {
-        MainGameLoop.effects.add(new Effect(areaOfEffect, new Color(80, 255, 80)));
+        Effect.effects.add(new Effect(areaOfEffect, new Color(80, 255, 80, 255), 5));
         for(Mob m : mob.room.getMobs(areaOfEffect)) {
             if(m != mob) {
-                KillEvent ke = m.hurt(mob, damage);
+                m.hurt(mob, damage);
 //                if(ke != null){
 //                    killed.add(ke);
 //                }

@@ -32,7 +32,7 @@ public abstract class Mob extends Entity {
             return null;
         } else {
             this.health -= damage;
-            if (this.health <= 0) {
+            if(this.health <= 0) {
                 return new KillEvent(this, source);
             }
             return null;

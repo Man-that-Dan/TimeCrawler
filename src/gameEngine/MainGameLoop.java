@@ -1,6 +1,8 @@
 package gameEngine;
 
 import enemies.BigMonster;
+import event.KillEvent;
+import event.MoveEvent;
 import maps.Locator;
 import entity.Entity;
 import entity.Mob;
@@ -10,6 +12,7 @@ import event.SpawnEvent;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Polygon;
 import processing.core.PApplet;
+import processing.core.PFont;
 import render.Effect;
 import world.Rand;
 import world.Room;
@@ -20,14 +23,14 @@ import java.util.Random;
 public class MainGameLoop extends PApplet {
     public static final double HUD_WIDTH = 50;
     private static Room room;
-    private static Player player;
+    public static Player player;
     private static long tick = 0;
     //time increment of time through one loop through
     private static int timeIncrement = 50;
     private static long deltaTime;
     private static long beginTime;
     public static double longitude;
-    public static HashSet<Effect> effects = new HashSet<>();
+//    public static HashSet<Effect> effects = new HashSet<>();
 
     /**
      * dispatch events has the samller or same timestamp to handler
@@ -45,8 +48,8 @@ public class MainGameLoop extends PApplet {
         if (tick % 4 == 0) {
 
         }
-        if (tick % 100 == 0) {
-            for(int i = 0; i < 3; i++) {
+        if (tick % 100000000 == 0) {
+            for(int i = 0; i < 1; i++) {
                 new SpawnEvent(new BigMonster(Rand.mob_next_double(0, room.width), Rand.mob_next_double(0, room.height), room, 1.0));
             }
         }
@@ -61,18 +64,14 @@ public class MainGameLoop extends PApplet {
         if(timeIncrement < deltaTime ) {
             //We should go on to the next tick
             deltaTime -= timeIncrement;
-            if(tick%5 == 0) {
-                System.out.println("Tick number: " + tick);
-            }
             dispatchEvents();
             //Do all the queued events
             boolean isDone = false;
             while(!Event.event_queue.isEmpty() && !isDone) {
                 Event next = Event.event_queue.peek();
                 if(next.priority < 1.0) {
-                    if(!Event.event_queue.poll().execute()) {
-                        next.generator.respond(next);
-                    }
+                    Event.event_queue.poll().execute();
+                    next.generator.respond(next);
                 } else {
                     isDone = true;
                 }
@@ -80,70 +79,99 @@ public class MainGameLoop extends PApplet {
             tick++;
         }
     }
+    PFont font;
     /**
      *
      */
     public void settings() {
-        size((int) (Room.width + HUD_WIDTH),(int) (Room.height + HUD_WIDTH));
+        size((int) (Room.width + 2 * HUD_WIDTH),(int) (Room.height + 2 * HUD_WIDTH));
     }
 
     public void setup() {
         smooth();
         noStroke();
+        font = createFont("Arial",16,true); // STEP 2 Create Font
     }
     //rendering
     public void draw() {
-        background(255);
-        getUserInput();
-        eventHandler();
-        for(Entity go : room.mobs) {
-            Coordinate[] info = go.getRenderInformation();
-            fill(go.color.r, go.color.g, go.color.b);
-            beginShape();
-            for(int i = 0; i < info.length; i++) {
-                vertex((float) (info[i].x + HUD_WIDTH), (float) (info[i].y + HUD_WIDTH));
+        if(player.health > 0) {
+            background(255);
+            getUserInput();
+            eventHandler();
+            for (Entity go : room.mobs) {
+                Coordinate[] info = go.getRenderInformation();
+                fill(go.color.r, go.color.g, go.color.b);
+                beginShape();
+                for (int i = 0; i < info.length; i++) {
+                    vertex((float) (info[i].x + HUD_WIDTH), (float) (info[i].y + HUD_WIDTH));
+                }
+                endShape();
             }
-            endShape();
-        }
-        for(Entity go : room.terrain) {
-            Coordinate[] info = go.getRenderInformation();
-            fill(go.color.r, go.color.g, go.color.b);
-            beginShape();
-            for(int i = 0; i < info.length; i++) {
-                vertex((float) (info[i].x + HUD_WIDTH), (float) (info[i].y + HUD_WIDTH));
+            for (Entity go : room.terrain) {
+                Coordinate[] info = go.getRenderInformation();
+                fill(go.color.r, go.color.g, go.color.b);
+                beginShape();
+                for (int i = 0; i < info.length; i++) {
+                    vertex((float) (info[i].x + HUD_WIDTH), (float) (info[i].y + HUD_WIDTH));
+                }
+                endShape();
             }
-            endShape();
-        }
-        for(Effect effect : effects) {
-            Coordinate[] info = effect.poly.getCoordinates();
-            fill(effect.color.r, effect.color.g, effect.color.b);
-            beginShape();
-            for(int i = 0; i < info.length; i++) {
-                vertex((float) (info[i].x + HUD_WIDTH), (float) (info[i].y + HUD_WIDTH));
+            for (Effect effect : Effect.effects) {
+                Coordinate[] info = effect.poly.getCoordinates();
+                fill(effect.color.r, effect.color.g, effect.color.b);
+                tint(255, effect.color.a);
+                beginShape();
+                for (int i = 0; i < info.length; i++) {
+                    vertex((float) (info[i].x + HUD_WIDTH), (float) (info[i].y + HUD_WIDTH));
+                }
+                endShape();
+                effect.tick();
             }
-            endShape();
+            Effect.effects.clear();
+            //HUD
+
+            textFont(font, 16);
+            fill(0);
+            text("" + player.health, 20, 20);
+            ///HUD
+
+            eventHandler();
+        } else {
+            background(155, 0, 0);
+            textFont(font, 80);
+            fill(0);
+            text("GAME OVER", 0, 400 + (int) HUD_WIDTH - 40);
+
         }
-        eventHandler();
     }
 
     public void getUserInput() {
         if (keyCode == LEFT) {
             //move left
             player.storeMovement(-5, 0);
+            player.direction = 2;
         }
         if (keyCode == RIGHT) {
             //move right
             player.storeMovement(+5, 0);
+            player.direction = 0;
         }
         if (keyCode == UP) {
             //move up
             player.storeMovement(0, +5);
+            player.direction = 1;
         }
         if (keyCode == DOWN) {
             //move down
             player.storeMovement(0, -5);
+            player.direction = 3;
+        }
+        if (key == ' '){
+            player.doAttack();
+//            System.out.println("good");
         }
         keyCode = 0;
+        key = '\0';
     }
 
     public static void main(String args[]){

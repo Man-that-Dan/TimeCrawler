@@ -13,31 +13,35 @@ import world.Room;
 
 public class BigMonster extends Enemy {
 
+    int ticksSinceLastAttack = 0;
+
     boolean hasRespondedToMovementFailure = false;
     RectangleFactory rf = new RectangleFactory();
     public BigMonster(double x, double y, Room room, double diff){
         super(x, y, room, diff);
         this.poly = rf.createRectangle(x - 5, y - 5, 10, 10);
         attack = 15;
+        health = 20;
         speed = 1;
         this.color = new Color(255, 0, 0);
     }
 
-    //Big AoE attacke
+    //Big AoE attack
     public void attack(){
         Polygon AoE = rf.createRectangle(this.x - 15, this.y - 15, 30, 30);
-        Event attacked = new AttackEvent(this, AoE, attack * difficulty);
+        new AttackEvent(this, AoE, attack * difficulty);
     };
 
     public void updateAI() {
         hasRespondedToMovementFailure = false;
-        Player target = null;
+        Mob target = null;
         for(Mob m : room.mobs) {
             if(m instanceof Player) {
-                target = (Player) m;
+                target = (Mob) m;
                 break;
             }
         }
+        if(target == null) target = this;
         double dx = target.x - x;
         double dy = target.y - y;
         if(dx == 0 && dy == 0) {
@@ -45,6 +49,13 @@ public class BigMonster extends Enemy {
         } else {
             new MoveEvent(this, speed * dx / Math.sqrt((dx * dx + dy * dy)), speed * dy / Math.sqrt((dx * dx + dy * dy)));
         }
+
+
+        if(ticksSinceLastAttack >= 10) {
+            ticksSinceLastAttack = 0;
+            attack();
+        }
+        ticksSinceLastAttack++;
     }
 
     @Override

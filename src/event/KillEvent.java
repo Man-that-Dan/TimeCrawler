@@ -13,6 +13,7 @@ public class KillEvent extends Event{
     }
 
     public boolean execute() {
+        System.out.println("KILL EVENT");
         killed.room.mobs.remove(killed);
         return true;
     }
