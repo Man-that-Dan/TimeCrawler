@@ -1,5 +1,6 @@
 package event;
 
+import entity.Door;
 import entity.Mob;
 
 public class MoveEvent extends Event {
@@ -15,6 +16,13 @@ public class MoveEvent extends Event {
     }
     public boolean execute() {
         mob.transpose(moved_x, moved_y);
+        if(!mob.getDoorCollisions().isEmpty()) {
+            for(Door d : mob.getDoorCollisions()) {
+                new MoveRoomEvent(mob, d.nextRoom);
+                break;
+            }
+            return true;
+        }
         if(mob.getTerrainCollisions().isEmpty() && mob.getMobCollisions().isEmpty()) {
             return true;
         } else {
